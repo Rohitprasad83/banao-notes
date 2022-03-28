@@ -1,0 +1,62 @@
+@import url("https://particle-ui.netlify.app/main.css");
+.home__container {
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template-areas: "header header" "sidebar main";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 7rem 1fr;
+}
+
+.home__container>.navbar {
+    grid-area: header;
+    z-index: 2;
+}
+
+.home__container>.sidebar {
+    grid-area: sidebar;
+    padding: 2rem;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: start;
+}
+
+.home__container>.main__container {
+    grid-area: main;
+    background-color: var(--white);
+}
+
+.sidebar__items {
+    grid-area: sidebar;
+    display: flex;
+    gap: 2rem;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: block;
+}
+
+
+/* main content ke lie */
+
+.note__input {
+    margin: 1rem auto;
+    width: 30rem;
+    min-height: 30rem;
+    border: 1px solid black;
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        height: 7rem;
+    }
+    .sidebar {
+        position: absolute;
+        z-index: 1;
+        margin-top: 6rem;
+        background-color: var(--white);
+    }
+}
