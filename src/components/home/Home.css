@@ -46,36 +46,17 @@
     display: block;
 }
 
-.search {
-    width: 30rem;
-    background-color: #fff;
-    margin: 3rem auto;
-    border: 1px solid var(--gray);
-    border-radius: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    padding: 1rem 2rem;
+.new__note .btn {
+    width: 25rem;
 }
-
-.search__input {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 1rem;
-    border: 1px solid var(--gray);
-}
-
-
-/* main content ke lie */
 
 .note__input {
     margin: 1rem auto;
     padding: 1rem 2rem;
-    background-color: #fff;
+    background-color: var(--pure-white);
     width: 30rem;
     min-height: 30rem;
-    border: 1px solid black;
+    border: 1px solid var(--gray);
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -153,5 +134,8 @@
         z-index: 1;
         margin-top: 6rem;
         background-color: var(--white);
+    }
+    .main__container {
+        margin-left: 5rem;
     }
 }

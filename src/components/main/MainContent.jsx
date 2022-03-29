@@ -2,7 +2,7 @@ function MainContent() {
   return (
     <div>
       <div className="text__lg text__center">
-        <div clasName="new__note">
+        <div className="new__note">
           <button className="btn btn__primary">Create a New Note</button>
         </div>
         <div className="note__input">
