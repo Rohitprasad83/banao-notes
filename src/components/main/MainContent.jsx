@@ -15,10 +15,10 @@ function MainContent() {
             placeholder="Body of the Note"
             className="input__body"></textarea>
           <div className="text__lg input__bottom">
-            <i class="fa-solid fa-palette input__icons"></i>
-            <i class="fa-solid fa-tag input__icons"></i>
-            <i class="fa-solid fa-box-archive input__icons"></i>
-            <i class="fa-solid fa-trash input__icons"></i>
+            <i className="fa-solid fa-palette input__icons"></i>
+            <i className="fa-solid fa-tag input__icons"></i>
+            <i className="fa-solid fa-box-archive input__icons"></i>
+            <i className="fa-solid fa-trash input__icons"></i>
             <button className="btn btn__primary">Save</button>
           </div>
         </div>
@@ -35,10 +35,10 @@ function MainContent() {
             asperiores corrupti aut maxime?
           </div>
           <div className="text__lg note__bottom">
-            <i class="fa-solid fa-palette input__icons"></i>
-            <i class="fa-solid fa-tag input__icons"></i>
-            <i class="fa-solid fa-box-archive input__icons"></i>
-            <i class="fa-solid fa-trash input__icons"></i>
+            <i className="fa-solid fa-palette input__icons"></i>
+            <i className="fa-solid fa-tag input__icons"></i>
+            <i className="fa-solid fa-box-archive input__icons"></i>
+            <i className="fa-solid fa-trash input__icons"></i>
             <button className="btn btn__primary">Save</button>
             <button className="btn btn__dark">Edit</button>
           </div>

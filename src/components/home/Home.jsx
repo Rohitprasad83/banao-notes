@@ -28,16 +28,16 @@ function Home() {
             <i className="fa-solid fa-house"></i>
           </div>
           <div className="sidebar__items">
-            <i class="fa-solid fa-tag"></i>
+            <i className="fa-solid fa-tag"></i>
           </div>
           <div className="sidebar__items">
-            <i class="fa-solid fa-box-archive"></i>
+            <i className="fa-solid fa-box-archive"></i>
           </div>
           <div className="sidebar__items">
-            <i class="fa-solid fa-trash"></i>
+            <i className="fa-solid fa-trash"></i>
           </div>
           <div className="sidebar__items">
-            <i class="fa-solid fa-user"></i>
+            <i className="fa-solid fa-user"></i>
           </div>
           <div className="sidebar__items">
             <i
