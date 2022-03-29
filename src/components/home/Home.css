@@ -36,8 +36,10 @@
 .sidebar__items {
     grid-area: sidebar;
     display: flex;
-    gap: 2rem;
+    gap: 3rem;
     cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .hamburger {
@@ -57,10 +59,11 @@
     padding: 1rem 2rem;
 }
 
-input {
+.search__input {
     width: 100%;
     padding: 1rem;
     border-radius: 1rem;
+    border: 1px solid var(--gray);
 }
 
 
@@ -117,7 +120,7 @@ input {
 
 .note__title {
     border: 1px solid var(--gray);
-    width: 25rem;
+    width: 100%;
     margin: 2rem auto;
     height: auto;
     padding: 1rem;

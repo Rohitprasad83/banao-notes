@@ -17,7 +17,11 @@ function Home() {
         setOpenSidebar={setOpenSidebar}
       />
       {openSidebar ? (
-        <Sidebar className="sidebar" />
+        <Sidebar
+          className="sidebar"
+          openSidebar={openSidebar}
+          setOpenSidebar={setOpenSidebar}
+        />
       ) : (
         <div className="sidebar text__lg">
           <div className="sidebar__items">
@@ -34,6 +38,11 @@ function Home() {
           </div>
           <div className="sidebar__items">
             <i class="fa-solid fa-user"></i>
+          </div>
+          <div className="sidebar__items">
+            <i
+              className="fa-solid fa-filter input__icons"
+              onClick={() => setOpenSidebar(!openSidebar)}></i>
           </div>
         </div>
       )}
