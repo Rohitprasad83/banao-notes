@@ -2,9 +2,8 @@ function MainContent() {
   return (
     <div>
       <div className="text__lg text__center">
-        <div className="search">
-          <input type="text" placeholder="Search" />
-          <i class="fa-solid fa-filter input__icons"></i>
+        <div clasName="new__note">
+          <button className="btn btn__primary">Create a New Note</button>
         </div>
         <div className="note__input">
           <input type="text" placeholder="Title" className="input__title" />
@@ -24,7 +23,6 @@ function MainContent() {
           </div>
         </div>
         <div className="note__input">
-          {/* <input type="text" placeholder="Title" className="input__title" /> */}
           <div className="note__title">
             Lorem ipsum dolor sit amet afawafwaffawwjawn
           </div>
