@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    width: 90%;
+    min-height: 90vh;
+    border: 2px solid var(--gray);
+    margin: 5rem auto;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5rem;
+    padding: 3rem;
+    background-color: var(--pure-white)
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: space-around;
+    gap: 2rem;
+    height: 100%;
+}
+
+.heading {
+    margin-bottom: 5rem;
+}
+
+.join {
+    margin-top: 5rem;
+}
+
+.alreadyAccount {
+    cursor: pointer;
+}
+
+.heading {
+    color: var(--warning-hover)
+}
+
+@media (max-width: 660px) {
+    .container {
+        flex-direction: column-reverse;
+        justify-content: center;
+        gap: 5rem;
+    }
+    .details {
+        gap: 0;
+    }
+}
