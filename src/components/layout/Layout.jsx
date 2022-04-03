@@ -1,9 +1,8 @@
 import { Navbar } from '../navbar/Navbar.jsx'
 import { Sidebar } from '../sidebar/Sidebar.jsx'
-import { MainContent } from '../main/MainContent.jsx'
 import { useState, useEffect } from 'react'
-import './Home.css'
-function Home() {
+import { Link } from 'react-router-dom'
+function Layout() {
   const [openSidebar, setOpenSidebar] = useState(false)
   useEffect(() => {
     window.onresize = () =>
@@ -25,19 +24,29 @@ function Home() {
       ) : (
         <div className="sidebar text__lg">
           <div className="sidebar__items">
-            <i className="fa-solid fa-house"></i>
+            <Link to="/home">
+              <i className="fa-solid fa-house"></i>
+            </Link>
           </div>
           <div className="sidebar__items">
-            <i className="fa-solid fa-tag"></i>
+            <Link to="/label">
+              <i className="fa-solid fa-tag"></i>
+            </Link>
           </div>
           <div className="sidebar__items">
-            <i className="fa-solid fa-box-archive"></i>
+            <Link to="/archive">
+              <i className="fa-solid fa-box-archive"></i>
+            </Link>
           </div>
           <div className="sidebar__items">
-            <i className="fa-solid fa-trash"></i>
+            <Link to="/trash">
+              <i className="fa-solid fa-trash"></i>
+            </Link>
           </div>
           <div className="sidebar__items">
-            <i className="fa-solid fa-user"></i>
+            <Link to="/profile">
+              <i className="fa-solid fa-user"></i>
+            </Link>
           </div>
           <div className="sidebar__items">
             <i
@@ -46,10 +55,7 @@ function Home() {
           </div>
         </div>
       )}
-      <div className="main__container">
-        <MainContent />
-      </div>
     </div>
   )
 }
-export { Home }
+export { Layout }
