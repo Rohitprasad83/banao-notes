@@ -1,5 +1,4 @@
-import { Layout } from '../../components/layout/Layout'
-import { MainContent } from '../../components/main/MainContent.jsx'
+import { Layout, MainContent } from 'components/index'
 function Label() {
   return (
     <div className="home__container">

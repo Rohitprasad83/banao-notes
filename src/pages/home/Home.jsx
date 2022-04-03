@@ -1,4 +1,4 @@
-import { Layout, MainContent } from '../../components/index'
+import { Layout, MainContent } from 'components/index'
 function Home() {
   return (
     <div className="home__container">
