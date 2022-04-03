@@ -5,7 +5,7 @@ function Trash() {
     <div className="home__container">
       <Layout />
       <div className="main__container">
-        <h2>Trash </h2>
+        <h2 className="text__center">Trash </h2>
         <MainContent />
       </div>
     </div>

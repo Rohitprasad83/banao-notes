@@ -5,7 +5,7 @@ function Archive() {
     <div className="home__container">
       <Layout />
       <div className="main__container">
-        <h2>Archive </h2>
+        <h2 className="text__center">Archive </h2>
         <MainContent />
       </div>
     </div>

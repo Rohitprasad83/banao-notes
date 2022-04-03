@@ -5,7 +5,7 @@ function Home() {
     <div className="home__container">
       <Layout />
       <div className="main__container">
-        <h2>Home Page </h2>
+        <h2 className="text__center">Home Page </h2>
         <MainContent />
       </div>
     </div>

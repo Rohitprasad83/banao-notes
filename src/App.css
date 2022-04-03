@@ -49,6 +49,10 @@
     display: block;
 }
 
+.new__note {
+    margin: 3rem auto;
+}
+
 .new__note .btn {
     width: 25rem;
 }
@@ -111,8 +115,7 @@
     margin: 1rem auto;
     padding: 1rem 2rem;
     background-color: var(--pure-white);
-    min-width: 40rem;
-    max-width: 60rem;
+    width: 60rem;
     min-height: 30rem;
     border: 1px solid var(--gray);
     display: flex;
@@ -164,9 +167,9 @@
         flex-direction: column;
     }
     .note__input {
-        width: 90%;
+        width: 80%;
     }
     .note {
-        width: 90%;
+        width: 90%
     }
 }
