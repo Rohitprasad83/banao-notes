@@ -1,5 +1,4 @@
-import { Navbar } from '../navbar/Navbar.jsx'
-import { Sidebar } from '../sidebar/Sidebar.jsx'
+import { Navbar, Sidebar } from '../index'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 function Layout() {

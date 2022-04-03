@@ -1,4 +1,4 @@
-import { Layout } from '../../components/layout/Layout'
+import { Layout } from '../../components/index'
 function Profile() {
   return (
     <div className="home__container">
