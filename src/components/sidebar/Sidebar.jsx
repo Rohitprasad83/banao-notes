@@ -1,22 +1,32 @@
 import './Sidebar.css'
-
+import { Link } from 'react-router-dom'
 function Sidebar() {
   return (
     <div className="sidebar text__lg">
       <div className="sidebar__items">
-        <i className="fa-solid fa-house"></i>Home
+        <Link to="/home">
+          <i className="fa-solid fa-house"></i>Home
+        </Link>
       </div>
       <div className="sidebar__items">
-        <i className="fa-solid fa-tag"></i>Tags
+        <Link to="/label">
+          <i className="fa-solid fa-tag"></i>Labels
+        </Link>
       </div>
       <div className="sidebar__items">
-        <i className="fa-solid fa-box-archive"></i> Archive
+        <Link to="/archive">
+          <i className="fa-solid fa-box-archive"></i> Archive
+        </Link>
       </div>
       <div className="sidebar__items">
-        <i className="fa-solid fa-trash"></i> Trash
+        <Link to="/trash">
+          <i className="fa-solid fa-trash"></i> Trash
+        </Link>
       </div>
       <div className="sidebar__items">
-        <i className="fa-solid fa-user"></i> Profile
+        <Link to="/profile">
+          <i className="fa-solid fa-user"></i> Profile
+        </Link>
       </div>
       <div className="sidebar__items ">
         <i className="fa-solid fa-filter input__icons"></i>

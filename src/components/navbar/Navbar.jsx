@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 function Navbar({ openSidebar, setOpenSidebar }) {
   return (
     <nav className="navbar simple">
@@ -6,8 +7,12 @@ function Navbar({ openSidebar, setOpenSidebar }) {
       </span>
       <h3 className="navbar__header">Banao Notes</h3>
       <ul className="navbar__list">
-        <li className="navbar__list__items">Home</li>
-        <li className="navbar__list__items">Profile</li>
+        <li className="navbar__list__items">
+          <Link to="/home">Home </Link>
+        </li>
+        <li className="navbar__list__items">
+          <Link to="/profile">Profile</Link>
+        </li>
       </ul>
     </nav>
   )
