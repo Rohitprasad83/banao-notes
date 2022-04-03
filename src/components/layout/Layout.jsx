@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 function Layout() {
   const [openSidebar, setOpenSidebar] = useState(false)
+
+  // if the window width is less than 576px then the sidebar will collapse to icons only
   useEffect(() => {
     window.onresize = () =>
       window.innerWidth <= 576 ? setOpenSidebar(false) : setOpenSidebar(true)
