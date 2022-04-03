@@ -183,7 +183,7 @@ export function Signup() {
         <button
           type="submit"
           onClick={() => userDispatch({ type: 'FILL_DUMMY_DETAILS' })}
-          className={`btn btn__info login ${authStyle['login']}`}>
+          className={`"btn btn__info ${authStyle['login']}`}>
           SignUp with Dummy Details
         </button>
         <div className="register text__center">
