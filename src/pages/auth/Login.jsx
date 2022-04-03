@@ -23,7 +23,7 @@ export function Login() {
       localStorage.setItem('token', response.data.encodedToken)
       setUsers(response.data.foundUser)
 
-      response.status === 200 && navigation('/home') && <Toast />
+      response.status === 200 && navigation('/home')
     } catch (err) {
       setError("Could'nt Login Up, Please try Again!")
       console.log(err)
