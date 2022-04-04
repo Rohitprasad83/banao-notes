@@ -3,13 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import authStyle from './auth.module.css'
 import axios from 'axios'
 import { useAuth } from 'context/auth-context'
-import { Toast } from 'components/index'
+import { successToast, errorToast } from 'components/toast/toasts'
+
 export function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigation = useNavigate()
   const [error, setError] = useState(null)
-  const { users, setUsers } = useAuth()
+  const { setUsers } = useAuth()
   const [showPassword, setShowPassword] = useState('password')
 
   const loginHandler = async e => {
@@ -19,14 +20,13 @@ export function Login() {
         email,
         password,
       })
-      console.log(response)
+      successToast('You have been logged in successfully')
       localStorage.setItem('token', response.data.encodedToken)
       setUsers(response.data.foundUser)
-
       response.status === 200 && navigation('/home')
     } catch (err) {
       setError("Could'nt Login Up, Please try Again!")
-      console.log(err)
+      errorToast(error)
     }
   }
   const fillDummyDetails = () => {
