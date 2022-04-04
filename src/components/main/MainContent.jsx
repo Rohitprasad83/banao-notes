@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { useNote, useAuth } from 'context/index'
 import { Note } from './Note'
 import axios from 'axios'
+import { colors } from './colors'
 
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
   const [createNote, setCreateNote] = useState(false)
-  const colors = ['red', 'blue', 'green', 'yellow', 'black']
+
   const { encodedToken } = useAuth()
 
   const saveNoteHandler = async e => {

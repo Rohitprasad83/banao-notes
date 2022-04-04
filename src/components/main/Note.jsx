@@ -2,6 +2,7 @@ import { useNote, useAuth } from 'context/index'
 import axios from 'axios'
 import { useState, useReducer } from 'react'
 import { createNoteReducer } from 'reducer/createNoteReducer'
+import { colors } from './colors'
 
 export const Note = note => {
   const {
@@ -11,7 +12,6 @@ export const Note = note => {
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
-  const colors = ['red', 'blue', 'green', 'yellow', 'black']
   const [editNote, editNoteDispatch] = useReducer(createNoteReducer, {
     _id: _id,
     title: title,
