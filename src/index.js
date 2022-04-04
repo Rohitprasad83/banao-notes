@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import { AuthContextProvider } from 'context/auth-context.jsx'
+import { AuthContextProvider, NoteContextProvider } from 'context/index'
 import { makeServer } from './server'
 import { BrowserRouter } from 'react-router-dom'
 // Call make Server
@@ -12,7 +12,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-        <App />
+        <NoteContextProvider>
+          <App />
+        </NoteContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,

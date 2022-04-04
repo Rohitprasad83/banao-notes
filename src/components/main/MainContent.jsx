@@ -1,21 +1,15 @@
-import { useReducer, useState } from 'react'
-import { createNoteReducer } from 'reducer/createNoteReducer'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-
+import { useNote } from 'context/index'
+import { Note } from './Note'
 function MainContent() {
-  const [note, noteDispatch] = useReducer(createNoteReducer, {
-    title: '',
-    body: '',
-    color: '',
-    archive: false,
-    pinned: false,
-  })
+  const { note, noteDispatch } = useNote()
+  const [notes, setNotes] = useState([])
   const [showPalette, setShowPalette] = useState(false)
   const colors = ['red', 'blue', 'green', 'yellow', 'black']
   const encodedToken = localStorage.getItem('token')
   const saveNoteHandler = async e => {
     e.preventDefault()
-    console.log('submitted')
     try {
       const response = await axios.post(
         '/api/notes',
@@ -27,10 +21,25 @@ function MainContent() {
         }
       )
       console.log(response)
+      setNotes(response.data.notes)
+      response.status === 201 && noteDispatch({ type: 'RESET' })
     } catch (err) {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await axios.get('/api/notes', {
+          headers: { authorization: encodedToken },
+        })
+        console.log('from useEffect', response)
+      } catch (err) {
+        console.log(err)
+      }
+    })()
+  }, [notes])
   return (
     <div>
       <div className="text__lg text__center notes__container">
@@ -45,6 +54,7 @@ function MainContent() {
               type="text"
               placeholder="Title"
               className="input__title"
+              value={note.title}
               onChange={e =>
                 noteDispatch({ type: 'TITLE', payload: e.target.value })
               }
@@ -54,6 +64,7 @@ function MainContent() {
               rows="10"
               placeholder="Body of the Note"
               className="input__body"
+              value={note.body}
               onChange={e =>
                 noteDispatch({ type: 'BODY', payload: e.target.value })
               }></textarea>
@@ -79,54 +90,17 @@ function MainContent() {
                 className="fa-solid fa-box-archive input__icons"
                 style={{ color: note.archive ? 'var(--warning)' : 'black' }}
                 onClick={e => noteDispatch({ type: 'ARCHIVE' })}></i>
-              <i className="fa-solid fa-trash input__icons"></i>
+              <i
+                className="fa-solid fa-trash input__icons"
+                onClick={e => noteDispatch({ type: 'RESET' })}></i>
               <button className="btn btn__warning" onClick={saveNoteHandler}>
                 Save
               </button>
             </div>
           </div>
-          <div className="note">
-            <div className="note__title">
-              Lorem ipsum dolor sit amet afawafwaffawwjawn
-            </div>
-            <div className="note__body">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-              velit consectetur tempore temporibus dolor aperiam amet fuga, illo
-              quibusdam laborum deserunt asperiores hic soluta animi iste illum
-              eligendi ut assumenda esse est doloremque. A, animi, placeat nisi
-              inventore vel corporis sint illo, culpa impedit nesciunt
-              temporibus asperiores corrupti aut maxime?
-            </div>
-            <div className="text__lg note__bottom">
-              <i className="fa-solid fa-palette input__icons"></i>
-              <i className="fa-solid fa-tag input__icons"></i>
-              <i className="fa-solid fa-box-archive input__icons"></i>
-              <i className="fa-solid fa-trash input__icons"></i>
-              <button className="btn btn__warning">Save</button>
-              <button className="btn btn__error">Edit</button>
-            </div>
-          </div>
-          <div className="note">
-            <div className="note__title">
-              Lorem ipsum dolor sit amet afawafwaffawwjawn
-            </div>
-            <div className="note__body">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-              velit consectetur tempore temporibus dolor aperiam amet fuga, illo
-              quibusdam laborum deserunt asperiores hic soluta animi iste illum
-              eligendi ut assumenda esse est doloremque. A, animi, placeat nisi
-              inventore vel corporis sint illo, culpa impedit nesciunt
-              temporibus asperiores corrupti aut maxime?
-            </div>
-            <div className="text__lg note__bottom">
-              <i className="fa-solid fa-palette input__icons"></i>
-              <i className="fa-solid fa-tag input__icons"></i>
-              <i className="fa-solid fa-box-archive input__icons"></i>
-              <i className="fa-solid fa-trash input__icons"></i>
-              <button className="btn btn__warning">Save</button>
-              <button className="btn btn__error">Edit</button>
-            </div>
-          </div>
+          {notes.map(({ _id, title, body, color }) => (
+            <Note key={_id} title={title} body={body} color={color} />
+          ))}
         </div>
       </div>
     </div>
