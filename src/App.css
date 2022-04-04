@@ -180,6 +180,10 @@
     align-items: center;
 }
 
+.notes__container {
+    flex-direction: column;
+}
+
 @media (max-width: 660px) {
     .navbar {
         height: 7rem;
@@ -192,9 +196,6 @@
     }
     .main__container {
         margin-left: 5rem;
-    }
-    .notes__container {
-        flex-direction: column;
     }
     .note__input {
         width: 80%;
