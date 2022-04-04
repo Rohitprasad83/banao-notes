@@ -82,6 +82,11 @@ function MainContent() {
                         noteDispatch({ type: 'COLOR', payload: { color } })
                       }></div>
                   ))}
+                  <div>
+                    <i
+                      className="fa-solid fa-x cursor-pointer"
+                      onClick={() => setShowPalette(false)}></i>
+                  </div>
                 </div>
               )}
               <i className="fa-solid fa-tag input__icons"></i>
