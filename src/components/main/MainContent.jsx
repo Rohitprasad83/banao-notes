@@ -3,8 +3,7 @@ import axios from 'axios'
 import { useNote } from 'context/index'
 import { Note } from './Note'
 function MainContent() {
-  const { note, noteDispatch } = useNote()
-  const [notes, setNotes] = useState([])
+  const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
   const colors = ['red', 'blue', 'green', 'yellow', 'black']
   const encodedToken = localStorage.getItem('token')

@@ -14,8 +14,11 @@ const NoteContextProvider = ({ children }) => {
     archive: false,
     pinned: false,
   })
+
+  const [notes, setNotes] = useState([])
+
   return (
-    <noteContext.Provider value={{ note, noteDispatch }}>
+    <noteContext.Provider value={{ note, noteDispatch, notes, setNotes }}>
       {children}
     </noteContext.Provider>
   )
