@@ -5,7 +5,7 @@ function createNoteReducer(state, action) {
     case 'BODY':
       return { ...state, body: action.payload }
     case 'COLOR':
-      return { ...state, color: action.payload }
+      return { ...state, color: action.payload.color }
     case 'ARCHIVE':
       return { ...state, archive: !state.archive }
     case 'PINNED':

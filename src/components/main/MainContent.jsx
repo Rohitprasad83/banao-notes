@@ -55,7 +55,7 @@ function MainContent() {
           {createNote && (
             <div
               className="note__input"
-              style={{ backgroundColor: note.color.color }}>
+              style={{ backgroundColor: note.color }}>
               <input
                 type="text"
                 placeholder="Title"
@@ -86,7 +86,10 @@ function MainContent() {
                         key={index}
                         style={{ backgroundColor: color }}
                         onClick={e =>
-                          noteDispatch({ type: 'COLOR', payload: { color } })
+                          noteDispatch({
+                            type: 'COLOR',
+                            payload: { color },
+                          })
                         }></div>
                     ))}
                     <div>
@@ -115,8 +118,8 @@ function MainContent() {
               </div>
             </div>
           )}
-          {notes.map(({ _id, title, body, color }) => (
-            <Note key={_id} id={_id} title={title} body={body} color={color} />
+          {notes.map(note => (
+            <Note key={note._id} note={note} />
           ))}
         </div>
       </div>

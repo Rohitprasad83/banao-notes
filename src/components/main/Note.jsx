@@ -1,13 +1,16 @@
 import { useNote } from 'context/index'
 import axios from 'axios'
 
-export const Note = ({ id, title, body, color }) => {
+export const Note = note => {
+  const {
+    note: { _id, title, body, color },
+  } = note
   const encodedToken = localStorage.getItem('token')
   const { setNotes } = useNote()
   const deleteNoteHandler = async e => {
     e.preventDefault()
     try {
-      const response = await axios.delete(`/api/notes/${id}`, {
+      const response = await axios.delete(`/api/notes/${_id}`, {
         headers: { authorization: encodedToken },
       })
       console.log(response)
@@ -16,8 +19,27 @@ export const Note = ({ id, title, body, color }) => {
       console.log(err)
     }
   }
+
+  //   const editNoteHandler = async e => {
+  //     e.preventDefault()
+  //     try {
+  //       const response = await axios.delete(
+  //         `/api/notes/${id}`,
+  //         {
+  //           note,
+  //         },
+  //         {
+  //           headers: { authorization: encodedToken },
+  //         }
+  //       )
+  //       console.log(response)
+  //       setNotes(response.data.notes)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
   return (
-    <div className="note" style={{ backgroundColor: color.color }}>
+    <div className="note" style={{ backgroundColor: color }}>
       <div className="note__title">{title}</div>
       <div className="note__body">{body}</div>
       <div className="text__lg note__bottom">

@@ -10,7 +10,7 @@ const NoteContextProvider = ({ children }) => {
     _id: uuidv4(),
     title: '',
     body: '',
-    color: '',
+    color: '#fff',
     archive: false,
     pinned: false,
   })
