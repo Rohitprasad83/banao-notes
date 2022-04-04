@@ -73,8 +73,10 @@
 .input__title {
     width: 100%;
     height: 4rem;
+    background-color: inherit;
     padding: 2rem 1rem;
-    border: 1px solid var(--gray);
+    outline: 0;
+    border: 1px solid var(--dark);
     border-radius: 1rem;
 }
 
@@ -82,7 +84,9 @@
     width: 100%;
     height: 100%;
     padding: 2rem 1rem;
-    border: 1px solid var(--gray);
+    background-color: inherit;
+    outline: 0;
+    border: 1px solid var(--dark);
     border-radius: 1rem;
 }
 
@@ -108,15 +112,35 @@
     flex-wrap: wrap;
 }
 
+.palette {
+    display: flex;
+    width: 20rem;
+    padding: 2rem;
+    gap: 1rem;
+    position: absolute;
+    margin-top: 10rem;
+    margin-left: -10rem;
+    background-color: var(--pure-white);
+    border: 1px solid var(--gray);
+    border-radius: 3rem;
+}
+
+.palette__color {
+    width: 3rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 
 /* note details */
 
 .note {
     margin: 1rem auto;
     padding: 1rem 2rem;
-    background-color: var(--pure-white);
     width: 60rem;
     min-height: 30rem;
+    background-color: var(--pure-white);
     border: 1px solid var(--gray);
     display: flex;
     flex-direction: column;
