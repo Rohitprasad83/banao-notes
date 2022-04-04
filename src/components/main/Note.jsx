@@ -1,4 +1,4 @@
-import { useNote } from 'context/index'
+import { useNote, useAuth } from 'context/index'
 import axios from 'axios'
 import { useState, useReducer } from 'react'
 import { createNoteReducer } from 'reducer/createNoteReducer'
@@ -7,8 +7,8 @@ export const Note = note => {
   const {
     note: { _id, title, body, color },
   } = note
-  const encodedToken = localStorage.getItem('token')
   const { setNotes } = useNote()
+  const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
   const colors = ['red', 'blue', 'green', 'yellow', 'black']
@@ -50,6 +50,9 @@ export const Note = note => {
       console.log(err)
     }
   }
+
+  const allFieldsAreFilled = editNote.title !== '' && editNote.body !== ''
+
   return (
     <div>
       {openEdit ? (
@@ -102,7 +105,10 @@ export const Note = note => {
             <i
               className="fa-solid fa-trash input__icons"
               onClick={deleteNoteHandler}></i>
-            <button className="btn btn__warning" onClick={editNoteHandler}>
+            <button
+              className="btn btn__warning"
+              onClick={editNoteHandler}
+              disabled={!allFieldsAreFilled}>
               Save
             </button>
             <button

@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { useNote } from 'context/index'
+import { useNote, useAuth } from 'context/index'
 import { Note } from './Note'
+import axios from 'axios'
+
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
   const [createNote, setCreateNote] = useState(false)
   const colors = ['red', 'blue', 'green', 'yellow', 'black']
-  const encodedToken = localStorage.getItem('token')
+  const { encodedToken } = useAuth()
+
   const saveNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -41,6 +43,8 @@ function MainContent() {
       }
     })()
   }, [notes])
+
+  const allFieldsAreFilled = note.title !== '' && note.body !== ''
   return (
     <div>
       <div className="text__lg text__center notes__container">
@@ -107,7 +111,10 @@ function MainContent() {
                 <i
                   className="fa-solid fa-trash input__icons"
                   onClick={e => noteDispatch({ type: 'RESET' })}></i>
-                <button className="btn btn__warning" onClick={saveNoteHandler}>
+                <button
+                  className="btn btn__warning"
+                  onClick={saveNoteHandler}
+                  disabled={!allFieldsAreFilled}>
                   Save
                 </button>
                 <button
