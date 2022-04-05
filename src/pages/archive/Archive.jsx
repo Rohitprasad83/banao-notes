@@ -7,7 +7,8 @@ import { Note } from 'components/main/Note'
 
 function Archive() {
   const { encodedToken } = useAuth()
-  const [archiveNotes, setArchiveNotes] = useState([])
+
+  const { archiveNotes, setArchiveNotes } = useNote()
   useEffect(() => {
     ;(async () => {
       try {
@@ -25,8 +26,9 @@ function Archive() {
       <Layout />
       <div className="main__container">
         <h2 className="text__center">Archive </h2>
+        <MainContent />
         {archiveNotes.map(note => (
-          <Note key={note._id} note={note} from="archive" />
+          <Note key={note._id} note={note} />
         ))}
       </div>
     </div>

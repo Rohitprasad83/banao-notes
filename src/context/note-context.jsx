@@ -16,9 +16,18 @@ const NoteContextProvider = ({ children }) => {
   })
 
   const [notes, setNotes] = useState([])
+  const [archiveNotes, setArchiveNotes] = useState([])
 
   return (
-    <noteContext.Provider value={{ note, noteDispatch, notes, setNotes }}>
+    <noteContext.Provider
+      value={{
+        note,
+        noteDispatch,
+        notes,
+        setNotes,
+        archiveNotes,
+        setArchiveNotes,
+      }}>
       {children}
     </noteContext.Provider>
   )

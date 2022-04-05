@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNote, useAuth } from 'context/index'
-import { Note } from './Note'
 import axios from 'axios'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
@@ -32,18 +31,6 @@ function MainContent() {
       errorToast('Something went wrong, Please try again!')
     }
   }
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const response = await axios.get('/api/notes', {
-          headers: { authorization: encodedToken },
-        })
-      } catch (err) {
-        errorToast('Could not Fetch All notes, please try again')
-      }
-    })()
-  }, [notes])
 
   const allFieldsAreFilled = note.title !== '' && note.body !== ''
   return (
@@ -126,9 +113,6 @@ function MainContent() {
               </div>
             </div>
           )}
-          {notes.map(note => (
-            <Note key={note._id} note={note} from="home" />
-          ))}
         </div>
       </div>
     </div>
