@@ -91,12 +91,10 @@ export const Note = (note, props) => {
           headers: { authorization: encodedToken },
         }
       )
-      console.log('response')
       successToast('You have Successfully restored the note')
       setNotes(response.data.notes)
       setArchiveNotes(response.data.archives)
     } catch (err) {
-      console.log(err)
       errorToast('Could not restore the note, please try again!')
     }
   }
