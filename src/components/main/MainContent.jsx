@@ -127,7 +127,7 @@ function MainContent() {
             </div>
           )}
           {notes.map(note => (
-            <Note key={note._id} note={note} />
+            <Note key={note._id} note={note} from="home" />
           ))}
         </div>
       </div>

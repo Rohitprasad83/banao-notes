@@ -32,6 +32,20 @@ export const Note = note => {
     }
   }
 
+  const archiveNoteHandler = async e => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(
+        `/api/notes/archives/${_id}`,
+        { note },
+        { headers: { authorization: encodedToken } }
+      )
+      setNotes(response.data.notes)
+      successToast('Note has been successfully archived')
+    } catch (error) {
+      successToast('Note was not archived, Please try again!')
+    }
+  }
   const editNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -102,7 +116,9 @@ export const Note = note => {
               </div>
             )}
             <i className="fa-solid fa-tag input__icons"></i>
-            <i className="fa-solid fa-box-archive input__icons"></i>
+            <i
+              className="fa-solid fa-box-archive input__icons"
+              onClick={archiveNoteHandler}></i>
             <i
               className="fa-solid fa-trash input__icons"
               onClick={deleteNoteHandler}></i>
@@ -126,7 +142,9 @@ export const Note = note => {
           <div className="text__lg note__bottom">
             <i className="fa-solid fa-palette input__icons"></i>
             <i className="fa-solid fa-tag input__icons"></i>
-            <i className="fa-solid fa-box-archive input__icons"></i>
+            <i
+              className="fa-solid fa-box-archive input__icons"
+              onClick={archiveNoteHandler}></i>
             <i
               className="fa-solid fa-trash input__icons"
               onClick={deleteNoteHandler}></i>
