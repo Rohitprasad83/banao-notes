@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useState, useReducer } from 'react'
 import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
+import { successToast, errorToast } from 'components/toast/toasts'
 
 export const Note = note => {
   const {
@@ -24,10 +25,10 @@ export const Note = note => {
       const response = await axios.delete(`/api/notes/${_id}`, {
         headers: { authorization: encodedToken },
       })
-      console.log(response)
       setNotes(response.data.notes)
+      successToast('Successfully deleted the note')
     } catch (err) {
-      console.log(err)
+      errorToast('Could not delete the note, please try again!')
     }
   }
 
@@ -43,11 +44,11 @@ export const Note = note => {
           headers: { authorization: encodedToken },
         }
       )
-      console.log(response)
+      successToast('You have Successfully Edited the note')
       setOpenEdit(false)
       setNotes(response.data.notes)
     } catch (err) {
-      console.log(err)
+      errorToast('Could not Edit the note, please try again!')
     }
   }
 

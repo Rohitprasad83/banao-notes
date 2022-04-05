@@ -3,6 +3,7 @@ import { useNote, useAuth } from 'context/index'
 import { Note } from './Note'
 import axios from 'axios'
 import { colors } from './colors'
+import { successToast, errorToast } from 'components/toast/toasts'
 
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
@@ -23,12 +24,12 @@ function MainContent() {
           headers: { authorization: encodedToken },
         }
       )
-      console.log(response)
       setNotes(response.data.notes)
       setShowPalette(false)
       response.status === 201 && noteDispatch({ type: 'RESET' })
+      successToast('You have successfully saved the note!')
     } catch (err) {
-      console.log(err)
+      errorToast('Something went wrong, Please try again!')
     }
   }
 
@@ -38,9 +39,8 @@ function MainContent() {
         const response = await axios.get('/api/notes', {
           headers: { authorization: encodedToken },
         })
-        console.log('from useEffect', response)
       } catch (err) {
-        console.log(err)
+        errorToast('Could not Fetch All notes, please try again')
       }
     })()
   }, [notes])

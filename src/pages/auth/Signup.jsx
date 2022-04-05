@@ -5,6 +5,8 @@ import authStyle from './auth.module.css'
 import { useAuth } from 'context/auth-context'
 import { validateEmail, validatePass } from 'utils/authenticationUtils'
 import { authReducer } from 'reducer/authReducer'
+import { successToast, errorToast } from 'components/toast/toasts'
+
 export function Signup() {
   const [userState, userDispatch] = useReducer(authReducer, {
     firstName: '',
@@ -27,13 +29,13 @@ export function Signup() {
         lastName,
         password,
       })
-      console.log(response)
+      successToast('You have signed up successfully')
       localStorage.setItem('token', response.data.encodedToken)
       setUsers(response.data.createdUser)
       response.status === 201 && navigation('/home')
     } catch (err) {
       setError("Could'nt Sign Up, Please try Again!")
-      console.log(err)
+      errorToast(error)
     }
   }
 
