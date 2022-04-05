@@ -4,8 +4,10 @@ const useAuth = () => useContext(authContext)
 
 const AuthContextProvider = ({ children }) => {
   const [users, setUsers] = useState(null)
+  const encodedToken = localStorage.getItem('token')
+
   return (
-    <authContext.Provider value={{ users, setUsers }}>
+    <authContext.Provider value={{ users, setUsers, encodedToken }}>
       {children}
     </authContext.Provider>
   )
