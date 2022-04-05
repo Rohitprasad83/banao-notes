@@ -15,6 +15,7 @@ function Home() {
         const response = await axios.get('/api/notes', {
           headers: { authorization: encodedToken },
         })
+        setNotes(response.data.notes)
       } catch (err) {
         errorToast('Could not Fetch All notes, please try again')
       }
