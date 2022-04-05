@@ -81,6 +81,26 @@ export const Note = (note, props) => {
     }
   }
 
+  const restoreNoteHandler = async e => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(
+        `/api/archives/restore/${_id}`,
+        {},
+        {
+          headers: { authorization: encodedToken },
+        }
+      )
+      console.log('response')
+      successToast('You have Successfully restored the note')
+      setNotes(response.data.notes)
+      setArchiveNotes(response.data.archives)
+    } catch (err) {
+      console.log(err)
+      errorToast('Could not restore the note, please try again!')
+    }
+  }
+
   const allFieldsAreFilled = editNote.title !== '' && editNote.body !== ''
 
   return (
@@ -163,7 +183,11 @@ export const Note = (note, props) => {
             <i className="fa-solid fa-tag input__icons"></i>
             <i
               className="fa-solid fa-box-archive input__icons"
-              onClick={archiveNoteHandler}></i>
+              onClick={
+                location.pathname === '/home'
+                  ? archiveNoteHandler
+                  : restoreNoteHandler
+              }></i>
             <i
               className="fa-solid fa-trash input__icons"
               onClick={

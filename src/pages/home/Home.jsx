@@ -7,7 +7,7 @@ import axios from 'axios'
 
 function Home() {
   const { encodedToken } = useAuth()
-  const { note, noteDispatch, notes, setNotes } = useNote()
+  const { notes, setNotes } = useNote()
 
   useEffect(() => {
     ;(async () => {
