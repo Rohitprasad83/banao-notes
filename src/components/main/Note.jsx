@@ -1,15 +1,16 @@
+import { useEffect } from 'react'
 import { useNote, useAuth } from 'context/index'
 import axios from 'axios'
 import { useState, useReducer } from 'react'
 import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
-
-export const Note = note => {
+import { useLocation } from 'react-router-dom'
+export const Note = (note, props) => {
   const {
     note: { _id, title, body, color },
   } = note
-  const { setNotes } = useNote()
+  const { setNotes, setArchiveNotes } = useNote()
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
@@ -19,6 +20,8 @@ export const Note = note => {
     body: body,
     color: color,
   })
+
+  const location = useLocation()
   const deleteNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -32,6 +35,32 @@ export const Note = note => {
     }
   }
 
+  const deleteArchiveNoteHandler = async e => {
+    e.preventDefault()
+    try {
+      const response = await axios.delete(`/api/archives/delete/${_id}`, {
+        headers: { authorization: encodedToken },
+      })
+      setArchiveNotes(response.data.archives)
+      successToast('Successfully deleted the note')
+    } catch (err) {
+      errorToast('Could not delete the note, please try again!')
+    }
+  }
+  const archiveNoteHandler = async e => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(
+        `/api/notes/archives/${_id}`,
+        { note },
+        { headers: { authorization: encodedToken } }
+      )
+      setNotes(response.data.notes)
+      successToast('Note has been successfully archived')
+    } catch (error) {
+      successToast('Note was not archived, Please try again!')
+    }
+  }
   const editNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -49,6 +78,24 @@ export const Note = note => {
       setNotes(response.data.notes)
     } catch (err) {
       errorToast('Could not Edit the note, please try again!')
+    }
+  }
+
+  const restoreNoteHandler = async e => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(
+        `/api/archives/restore/${_id}`,
+        {},
+        {
+          headers: { authorization: encodedToken },
+        }
+      )
+      successToast('You have Successfully restored the note')
+      setNotes(response.data.notes)
+      setArchiveNotes(response.data.archives)
+    } catch (err) {
+      errorToast('Could not restore the note, please try again!')
     }
   }
 
@@ -102,10 +149,16 @@ export const Note = note => {
               </div>
             )}
             <i className="fa-solid fa-tag input__icons"></i>
-            <i className="fa-solid fa-box-archive input__icons"></i>
+            <i
+              className="fa-solid fa-box-archive input__icons"
+              onClick={archiveNoteHandler}></i>
             <i
               className="fa-solid fa-trash input__icons"
-              onClick={deleteNoteHandler}></i>
+              onClick={
+                location.pathname === '/home'
+                  ? deleteNoteHandler
+                  : deleteArchiveNoteHandler
+              }></i>
             <button
               className="btn btn__warning"
               onClick={editNoteHandler}
@@ -126,10 +179,20 @@ export const Note = note => {
           <div className="text__lg note__bottom">
             <i className="fa-solid fa-palette input__icons"></i>
             <i className="fa-solid fa-tag input__icons"></i>
-            <i className="fa-solid fa-box-archive input__icons"></i>
+            <i
+              className="fa-solid fa-box-archive input__icons"
+              onClick={
+                location.pathname === '/home'
+                  ? archiveNoteHandler
+                  : restoreNoteHandler
+              }></i>
             <i
               className="fa-solid fa-trash input__icons"
-              onClick={deleteNoteHandler}></i>
+              onClick={
+                location.pathname === '/home'
+                  ? deleteNoteHandler
+                  : deleteArchiveNoteHandler
+              }></i>
             <button className="btn btn__warning">Save</button>
             <button
               className="btn btn__error"
