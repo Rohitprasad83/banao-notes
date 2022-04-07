@@ -10,7 +10,7 @@ export const Note = (note, props) => {
   const {
     note: { _id, title, body, color },
   } = note
-  const { setNotes, setArchiveNotes } = useNote()
+  const { setNotes, setArchiveNotes, trash, setTrash } = useNote()
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
@@ -29,6 +29,7 @@ export const Note = (note, props) => {
         headers: { authorization: encodedToken },
       })
       setNotes(response.data.notes)
+      setTrash([...trash, note])
       successToast('Successfully deleted the note')
     } catch (err) {
       errorToast('Could not delete the note, please try again!')
@@ -42,6 +43,7 @@ export const Note = (note, props) => {
         headers: { authorization: encodedToken },
       })
       setArchiveNotes(response.data.archives)
+      setTrash([...trash, ...note])
       successToast('Successfully deleted the note')
     } catch (err) {
       errorToast('Could not delete the note, please try again!')
