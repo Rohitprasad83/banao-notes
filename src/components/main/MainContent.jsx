@@ -15,22 +15,26 @@ function MainContent() {
 
   const saveNoteHandler = async e => {
     e.preventDefault()
-    try {
-      const response = await axios.post(
-        '/api/notes',
-        {
-          note: { ...note, createdOn: getCurrentDate() },
-        },
-        {
-          headers: { authorization: encodedToken },
-        }
-      )
-      setNotes(response.data.notes)
-      setShowPalette(false)
-      response.status === 201 && noteDispatch({ type: 'RESET' })
-      successToast('You have successfully saved the note!')
-    } catch (err) {
-      errorToast('Something went wrong, Please try again!')
+    if (allFieldsAreFilled) {
+      try {
+        const response = await axios.post(
+          '/api/notes',
+          {
+            note: { ...note, createdOn: getCurrentDate() },
+          },
+          {
+            headers: { authorization: encodedToken },
+          }
+        )
+        setNotes(response.data.notes)
+        setShowPalette(false)
+        response.status === 201 && noteDispatch({ type: 'RESET' })
+        successToast('You have successfully saved the note!')
+      } catch (err) {
+        errorToast('Something went wrong, Please try again!')
+      }
+    } else {
+      errorToast('Please fill all the fields')
     }
   }
   const allFieldsAreFilled = note.title !== '' && note.body !== ''
@@ -126,7 +130,7 @@ function MainContent() {
                 onClick={e => noteDispatch({ type: 'RESET' })}></i>
               <i
                 className="fa-solid fa-check cursor-pointer"
-                onClick={allFieldsAreFilled && saveNoteHandler}></i>
+                onClick={saveNoteHandler}></i>
               <i
                 className="fa-solid fa-x cursor-pointer"
                 onClick={() => setCreateNote(false)}></i>
