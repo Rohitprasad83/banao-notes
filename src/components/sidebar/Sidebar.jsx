@@ -1,6 +1,8 @@
 import './Sidebar.css'
 import { Link } from 'react-router-dom'
+import { useFilter } from 'context/index'
 function Sidebar() {
+  const { filterDispatch } = useFilter()
   return (
     <div className="sidebar text__lg">
       <div className="sidebar__items">
@@ -34,11 +36,21 @@ function Sidebar() {
       </div>
       <div className="sidebar__items font__bold">Sort By</div>
       <div className="sidebar__items text__md">
-        <input type="radio" name="sortBy" id="Newest First" />
+        <input
+          type="radio"
+          name="sortBy"
+          id="Newest First"
+          onChange={e => filterDispatch({ type: 'NEWEST_FIRST' })}
+        />
         <label htmlFor="Newest First">Newest first</label>
       </div>
       <div className="sidebar__items text__md">
-        <input type="radio" name="sortBy" id="Oldest First" />
+        <input
+          type="radio"
+          name="sortBy"
+          id="Oldest First"
+          onChange={e => filterDispatch({ type: 'OLDEST_FIRST' })}
+        />
         <label htmlFor="Oldest First">Oldest First</label>
       </div>
       <div className="sidebar__items font__bold">Filter By</div>
