@@ -195,7 +195,10 @@
 }
 
 .notes__container {
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 @media (max-width: 660px) {
