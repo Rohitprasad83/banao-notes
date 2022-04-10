@@ -56,4 +56,26 @@ const deleteNoteHandler = async(
     }
 }
 
-export { saveNoteHandler, deleteNoteHandler }
+const deleteArchiveNoteHandler = async(
+    e,
+    _id,
+    note,
+    trash,
+    setArchiveNotes,
+    setTrash,
+    encodedToken
+) => {
+    e.preventDefault()
+    try {
+        const response = await axios.delete(`/api/archives/delete/${_id}`, {
+            headers: { authorization: encodedToken },
+        })
+        setArchiveNotes(response.data.archives)
+        setTrash([...trash, note])
+        successToast('Successfully deleted the note')
+    } catch (err) {
+        errorToast('Could not delete the note, please try again!')
+    }
+}
+
+export { saveNoteHandler, deleteNoteHandler, deleteArchiveNoteHandler }

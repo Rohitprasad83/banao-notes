@@ -5,7 +5,11 @@ import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
 import { useLocation } from 'react-router-dom'
-import { saveNoteHandler, deleteNoteHandler } from 'services/noteServices'
+import {
+  saveNoteHandler,
+  deleteNoteHandler,
+  deleteArchiveNoteHandler,
+} from 'services/noteServices'
 
 export const Note = note => {
   const {
@@ -28,19 +32,6 @@ export const Note = note => {
   const location = useLocation()
   const pathName = location.pathname
 
-  const deleteArchiveNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.delete(`/api/archives/delete/${_id}`, {
-        headers: { authorization: encodedToken },
-      })
-      setArchiveNotes(response.data.archives)
-      setTrash([...trash, ...note])
-      successToast('Successfully deleted the note')
-    } catch (err) {
-      errorToast('Could not delete the note, please try again!')
-    }
-  }
   const archiveNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -184,7 +175,15 @@ export const Note = note => {
                       note,
                       encodedToken
                     )
-                  : deleteArchiveNoteHandler
+                  : deleteArchiveNoteHandler(
+                      e,
+                      _id,
+                      note,
+                      trash,
+                      setArchiveNotes,
+                      setTrash,
+                      encodedToken
+                    )
               }></i>
             <i
               className="fa-solid fa-check cursor-pointer"
@@ -225,7 +224,15 @@ export const Note = note => {
                           note,
                           encodedToken
                         )
-                      : deleteArchiveNoteHandler
+                      : deleteArchiveNoteHandler(
+                          e,
+                          _id,
+                          note,
+                          trash,
+                          setArchiveNotes,
+                          setTrash,
+                          encodedToken
+                        )
                   }></i>
               )}
               {pathName !== '/trash' && (
