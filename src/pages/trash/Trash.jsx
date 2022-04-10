@@ -9,9 +9,11 @@ function Trash() {
       <div className="main__container">
         <h2 className="text__center">Trash </h2>
         <MainContent />
-        {trash.map(({ note }) => (
-          <Note key={note._id} note={note} />
-        ))}
+        <div className="notes__container">
+          {trash.map(({ note }) => (
+            <Note key={note._id} note={note} />
+          ))}
+        </div>
       </div>
     </div>
   )

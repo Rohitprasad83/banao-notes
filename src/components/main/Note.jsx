@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNote, useAuth } from 'context/index'
 import axios from 'axios'
 import { useState, useReducer } from 'react'
@@ -25,6 +24,7 @@ export const Note = note => {
   })
 
   const location = useLocation()
+  const pathName = location.pathname
   const deleteNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -205,23 +205,32 @@ export const Note = note => {
             <div className="text__md">Created At {createdOn}</div>
             <div className="text__md">Tags: {tags}</div>
             <div className="text__lg note__buttons">
-              <i
-                className="fa-solid fa-box-archive input__icons"
-                onClick={
-                  location.pathname === '/home'
-                    ? archiveNoteHandler
-                    : restoreNoteHandler
-                }></i>
-              <i
-                className="fa-solid fa-trash input__icons"
-                onClick={
-                  location.pathname === '/home'
-                    ? deleteNoteHandler
-                    : deleteArchiveNoteHandler
-                }></i>
-              <i
-                className="fa-solid fa-pen-to-square cursor-pointer"
-                onClick={() => setOpenEdit(true)}></i>
+              {pathName !== '/trash' && (
+                <i
+                  className="fa-solid fa-box-archive input__icons"
+                  onClick={
+                    pathName === '/home'
+                      ? archiveNoteHandler
+                      : restoreNoteHandler
+                  }></i>
+              )}
+              {pathName !== '/trash' && (
+                <i
+                  className="fa-solid fa-trash input__icons"
+                  onClick={
+                    pathName === '/home'
+                      ? deleteNoteHandler
+                      : deleteArchiveNoteHandler
+                  }></i>
+              )}
+              {pathName !== '/trash' && (
+                <i
+                  className="fa-solid fa-pen-to-square cursor-pointer"
+                  onClick={() => setOpenEdit(true)}></i>
+              )}
+              {pathName === '/trash' && (
+                <i className="fa-solid fa-trash-arrow-up input__icons"></i>
+              )}
             </div>
           </div>
         </div>
