@@ -8,17 +8,20 @@ import { successToast, errorToast } from 'components/toast/toasts'
 import { useLocation } from 'react-router-dom'
 export const Note = note => {
   const {
-    note: { _id, title, body, color, createdOn },
+    note: { _id, title, body, color, createdOn, tags },
   } = note
   const { setNotes, setArchiveNotes, trash, setTrash } = useNote()
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
+  const [showTags, setShowTags] = useState(false)
+
   const [editNote, editNoteDispatch] = useReducer(createNoteReducer, {
     _id: _id,
     title: title,
     body: body,
     color: color,
+    tags: tags,
   })
 
   const location = useLocation()
@@ -125,7 +128,7 @@ export const Note = note => {
             onChange={e =>
               editNoteDispatch({ type: 'BODY', payload: e.target.value })
             }></textarea>
-          <div className="text__lg note__bottom">
+          <div className="text__lg note__buttons">
             <i
               className="fa-solid fa-palette input__icons palette__container"
               onClick={() => setShowPalette(!showPalette)}></i>
@@ -150,7 +153,32 @@ export const Note = note => {
                 </div>
               </div>
             )}
-            <i className="fa-solid fa-tag input__icons"></i>
+            <i
+              className="fa-solid fa-tag input__icons"
+              onClick={() => setShowTags(!showTags)}></i>
+            {showTags && (
+              <div className="palette">
+                <div className="text__md">
+                  Add Tag
+                  <input
+                    type="text"
+                    className="tags"
+                    value={tags}
+                    onChange={e =>
+                      editNoteDispatch({
+                        type: 'TAGS',
+                        payload: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <i
+                    className="fa-solid fa-x cursor-pointer"
+                    onClick={() => setShowTags(false)}></i>
+                </div>
+              </div>
+            )}
             <i
               className="fa-solid fa-box-archive input__icons"
               onClick={archiveNoteHandler}></i>
@@ -179,28 +207,30 @@ export const Note = note => {
           <div className="note__title">{title}</div>
           <div className="note__body">{body}</div>
           <div className="text__lg note__bottom">
-            <span className="text__md">{createdOn}</span>
-            <i className="fa-solid fa-tag input__icons"></i>
-            <i
-              className="fa-solid fa-box-archive input__icons"
-              onClick={
-                location.pathname === '/home'
-                  ? archiveNoteHandler
-                  : restoreNoteHandler
-              }></i>
-            <i
-              className="fa-solid fa-trash input__icons"
-              onClick={
-                location.pathname === '/home'
-                  ? deleteNoteHandler
-                  : deleteArchiveNoteHandler
-              }></i>
-            <button className="btn btn__warning">Save</button>
-            <button
-              className="btn btn__error"
-              onClick={() => setOpenEdit(true)}>
-              Edit
-            </button>
+            <div className="text__md">Created At {createdOn}</div>
+            <div className="text__md">Tags: {tags}</div>
+            <div className="text__lg note__buttons">
+              <i
+                className="fa-solid fa-box-archive input__icons"
+                onClick={
+                  location.pathname === '/home'
+                    ? archiveNoteHandler
+                    : restoreNoteHandler
+                }></i>
+              <i
+                className="fa-solid fa-trash input__icons"
+                onClick={
+                  location.pathname === '/home'
+                    ? deleteNoteHandler
+                    : deleteArchiveNoteHandler
+                }></i>
+              <button className="btn btn__warning">Save</button>
+              <button
+                className="btn btn__error"
+                onClick={() => setOpenEdit(true)}>
+                Edit
+              </button>
+            </div>
           </div>
         </div>
       )}

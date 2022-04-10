@@ -10,6 +10,9 @@ function createNoteReducer(state, action) {
       return { ...state, archive: !state.archive }
     case 'PINNED':
       return { ...state, pinned: action.payload }
+    case 'TAGS':
+      console.log(action.payload)
+      return { ...state, tags: action.payload }
     case 'RESET':
       return {
         ...state,

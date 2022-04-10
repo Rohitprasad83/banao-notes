@@ -144,7 +144,7 @@
 .note {
     margin: 1rem auto;
     padding: 1rem 2rem;
-    width: 60rem;
+    width: 35rem;
     min-height: 30rem;
     background-color: var(--pure-white);
     border: 1px solid var(--gray);
@@ -177,8 +177,21 @@
 
 .note__bottom {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.note__buttons {
+    display: flex;
+    gap: 2rem;
     align-items: center;
+}
+
+.tags {
+    height: 2rem;
+    border: 1px solid var(--dark);
+    border-radius: 2rem;
+    padding: 1rem
 }
 
 .notes__container {

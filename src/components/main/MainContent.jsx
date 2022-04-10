@@ -7,10 +7,11 @@ import { getCurrentDate } from 'utils/getCurrentDate'
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
+  const [showTags, setShowTags] = useState(false)
+
   const [createNote, setCreateNote] = useState(false)
 
   const { encodedToken } = useAuth()
-  // console.log(typeof getCurrentDate())
 
   const saveNoteHandler = async e => {
     e.preventDefault()
@@ -25,7 +26,6 @@ function MainContent() {
         }
       )
       setNotes(response.data.notes)
-      console.log(notes)
       setShowPalette(false)
       response.status === 201 && noteDispatch({ type: 'RESET' })
       successToast('You have successfully saved the note!')
@@ -92,7 +92,32 @@ function MainContent() {
                     </div>
                   </div>
                 )}
-                <i className="fa-solid fa-tag input__icons"></i>
+                <i
+                  className="fa-solid fa-tag input__icons"
+                  onClick={() => setShowTags(!showTags)}></i>
+                {showTags && (
+                  <div className="palette">
+                    <div className="text__md">
+                      Add Tag
+                      <input
+                        type="text"
+                        className="tags"
+                        value={note.tags}
+                        onChange={e =>
+                          noteDispatch({
+                            type: 'TAGS',
+                            payload: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                    <div>
+                      <i
+                        className="fa-solid fa-x cursor-pointer"
+                        onClick={() => setShowTags(false)}></i>
+                    </div>
+                  </div>
+                )}
                 <i
                   className="fa-solid fa-box-archive input__icons"
                   style={{ color: note.archive ? 'var(--warning)' : 'black' }}
