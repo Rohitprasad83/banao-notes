@@ -95,7 +95,7 @@ function MainContent() {
                 </div>
               )}
               <i
-                className="fa-solid fa-tag input__icons"
+                className="fa-solid fa-tags input__icons"
                 onClick={() => setShowTags(!showTags)}></i>
               {showTags && (
                 <div className="palette">
@@ -116,7 +116,7 @@ function MainContent() {
                   </div>
                   <div>
                     <i
-                      className="fa-solid fa-x cursor-pointer"
+                      className="fa-solid fa-check cursor-pointer"
                       onClick={() => setShowTags(false)}></i>
                   </div>
                 </div>

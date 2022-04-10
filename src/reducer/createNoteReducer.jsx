@@ -20,6 +20,7 @@ function createNoteReducer(state, action) {
         color: '',
         archive: false,
         pinned: false,
+        tags: '',
       }
     default:
       return { ...state }

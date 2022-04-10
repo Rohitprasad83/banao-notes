@@ -14,6 +14,7 @@ const NoteContextProvider = ({ children }) => {
     color: '#fff',
     archive: false,
     pinned: false,
+    tags: '',
   })
 
   const [notes, setNotes] = useState([])

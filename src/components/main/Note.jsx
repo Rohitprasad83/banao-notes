@@ -174,7 +174,7 @@ export const Note = note => {
                 </div>
                 <div>
                   <i
-                    className="fa-solid fa-x cursor-pointer"
+                    className="fa-solid fa-check cursor-pointer"
                     onClick={() => setShowTags(false)}></i>
                 </div>
               </div>
