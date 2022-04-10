@@ -11,6 +11,7 @@ import {
   deleteArchiveNoteHandler,
   archiveNoteHandler,
   restoreNoteHandler,
+  editNoteHandler,
 } from 'services/noteServices'
 
 export const Note = note => {
@@ -33,26 +34,6 @@ export const Note = note => {
 
   const location = useLocation()
   const pathName = location.pathname
-
-  const editNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.post(
-        `/api/notes/${_id}`,
-        {
-          note: editNote,
-        },
-        {
-          headers: { authorization: encodedToken },
-        }
-      )
-      successToast('You have Successfully Edited the note')
-      setOpenEdit(false)
-      setNotes(response.data.notes)
-    } catch (err) {
-      errorToast('Could not Edit the note, please try again!')
-    }
-  }
 
   const allFieldsAreFilled = editNote.title !== '' && editNote.body !== ''
 
@@ -157,7 +138,17 @@ export const Note = note => {
               }></i>
             <i
               className="fa-solid fa-check cursor-pointer"
-              onClick={allFieldsAreFilled && editNoteHandler}></i>
+              onClick={e =>
+                allFieldsAreFilled &&
+                editNoteHandler(
+                  e,
+                  _id,
+                  editNote,
+                  setOpenEdit,
+                  setNotes,
+                  encodedToken
+                )
+              }></i>
             <i
               className="fa-solid fa-x cursor-pointer"
               onClick={() => setOpenEdit(false)}></i>

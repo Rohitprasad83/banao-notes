@@ -34,6 +34,31 @@ const saveNoteHandler = async(
     }
 }
 
+const editNoteHandler = async(
+    e,
+    _id,
+    editNote,
+    setOpenEdit,
+    setNotes,
+    encodedToken
+) => {
+    e.preventDefault()
+    try {
+        const response = await axios.post(
+            `/api/notes/${_id}`, {
+                note: editNote,
+            }, {
+                headers: { authorization: encodedToken },
+            }
+        )
+        successToast('You have Successfully Edited the note')
+        setOpenEdit(false)
+        setNotes(response.data.notes)
+    } catch (err) {
+        errorToast('Could not Edit the note, please try again!')
+    }
+}
+
 const deleteNoteHandler = async(
     e,
     _id,
@@ -118,4 +143,5 @@ export {
     deleteArchiveNoteHandler,
     archiveNoteHandler,
     restoreNoteHandler,
+    editNoteHandler,
 }
