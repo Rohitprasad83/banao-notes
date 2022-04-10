@@ -5,11 +5,13 @@ import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
 import { useLocation } from 'react-router-dom'
+import { saveNoteHandler, deleteNoteHandler } from 'services/noteServices'
+
 export const Note = note => {
   const {
     note: { _id, title, body, color, createdOn, tags },
   } = note
-  const { setNotes, setArchiveNotes, trash, setTrash } = useNote()
+  const { setNotes, setArchiveNotes, trash, setTrash, noteDispatch } = useNote()
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
@@ -25,19 +27,6 @@ export const Note = note => {
 
   const location = useLocation()
   const pathName = location.pathname
-  const deleteNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.delete(`/api/notes/${_id}`, {
-        headers: { authorization: encodedToken },
-      })
-      setNotes(response.data.notes)
-      setTrash([...trash, note])
-      successToast('Successfully deleted the note')
-    } catch (err) {
-      errorToast('Could not delete the note, please try again!')
-    }
-  }
 
   const deleteArchiveNoteHandler = async e => {
     e.preventDefault()
@@ -184,9 +173,17 @@ export const Note = note => {
               onClick={archiveNoteHandler}></i>
             <i
               className="fa-solid fa-trash input__icons"
-              onClick={
-                location.pathname === '/home'
-                  ? deleteNoteHandler
+              onClick={e =>
+                pathName === '/home'
+                  ? deleteNoteHandler(
+                      e,
+                      _id,
+                      setNotes,
+                      setTrash,
+                      trash,
+                      note,
+                      encodedToken
+                    )
                   : deleteArchiveNoteHandler
               }></i>
             <i
@@ -217,9 +214,17 @@ export const Note = note => {
               {pathName !== '/trash' && (
                 <i
                   className="fa-solid fa-trash input__icons"
-                  onClick={
+                  onClick={e =>
                     pathName === '/home'
-                      ? deleteNoteHandler
+                      ? deleteNoteHandler(
+                          e,
+                          _id,
+                          setNotes,
+                          setTrash,
+                          trash,
+                          note,
+                          encodedToken
+                        )
                       : deleteArchiveNoteHandler
                   }></i>
               )}
@@ -227,9 +232,6 @@ export const Note = note => {
                 <i
                   className="fa-solid fa-pen-to-square cursor-pointer"
                   onClick={() => setOpenEdit(true)}></i>
-              )}
-              {pathName === '/trash' && (
-                <i className="fa-solid fa-trash-arrow-up input__icons"></i>
               )}
             </div>
           </div>
