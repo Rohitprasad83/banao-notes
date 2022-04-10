@@ -78,4 +78,44 @@ const deleteArchiveNoteHandler = async(
     }
 }
 
-export { saveNoteHandler, deleteNoteHandler, deleteArchiveNoteHandler }
+const archiveNoteHandler = async(_id, note, setNotes, encodedToken) => {
+    try {
+        const response = await axios.post(
+            `/api/notes/archives/${_id}`, { note }, { headers: { authorization: encodedToken } }
+        )
+        setNotes(response.data.notes)
+        successToast('Note has been successfully archived')
+    } catch (error) {
+        console.log(error)
+        errorToast('Note was not archived, Please try again!')
+    }
+}
+
+const restoreNoteHandler = async(
+    _id,
+    note,
+    setNotes,
+    encodedToken,
+    setArchiveNotes
+) => {
+    try {
+        const response = await axios.post(
+            `/api/archives/restore/${_id}`, {}, {
+                headers: { authorization: encodedToken },
+            }
+        )
+        successToast('You have Successfully restored the note')
+        setNotes(response.data.notes)
+        setArchiveNotes(response.data.archives)
+    } catch (err) {
+        errorToast('Could not restore the note, please try again!')
+    }
+}
+
+export {
+    saveNoteHandler,
+    deleteNoteHandler,
+    deleteArchiveNoteHandler,
+    archiveNoteHandler,
+    restoreNoteHandler,
+}

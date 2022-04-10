@@ -9,6 +9,8 @@ import {
   saveNoteHandler,
   deleteNoteHandler,
   deleteArchiveNoteHandler,
+  archiveNoteHandler,
+  restoreNoteHandler,
 } from 'services/noteServices'
 
 export const Note = note => {
@@ -32,20 +34,6 @@ export const Note = note => {
   const location = useLocation()
   const pathName = location.pathname
 
-  const archiveNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.post(
-        `/api/notes/archives/${_id}`,
-        { note },
-        { headers: { authorization: encodedToken } }
-      )
-      setNotes(response.data.notes)
-      successToast('Note has been successfully archived')
-    } catch (error) {
-      successToast('Note was not archived, Please try again!')
-    }
-  }
   const editNoteHandler = async e => {
     e.preventDefault()
     try {
@@ -63,24 +51,6 @@ export const Note = note => {
       setNotes(response.data.notes)
     } catch (err) {
       errorToast('Could not Edit the note, please try again!')
-    }
-  }
-
-  const restoreNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.post(
-        `/api/archives/restore/${_id}`,
-        {},
-        {
-          headers: { authorization: encodedToken },
-        }
-      )
-      successToast('You have Successfully restored the note')
-      setNotes(response.data.notes)
-      setArchiveNotes(response.data.archives)
-    } catch (err) {
-      errorToast('Could not restore the note, please try again!')
     }
   }
 
@@ -204,10 +174,16 @@ export const Note = note => {
               {pathName !== '/trash' && (
                 <i
                   className="fa-solid fa-box-archive input__icons"
-                  onClick={
+                  onClick={() =>
                     pathName === '/home'
-                      ? archiveNoteHandler
-                      : restoreNoteHandler
+                      ? archiveNoteHandler(_id, note, setNotes, encodedToken)
+                      : restoreNoteHandler(
+                          _id,
+                          note,
+                          setNotes,
+                          encodedToken,
+                          setArchiveNotes
+                        )
                   }></i>
               )}
               {pathName !== '/trash' && (
