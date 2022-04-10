@@ -3,13 +3,14 @@ import { useNote, useAuth } from 'context/index'
 import axios from 'axios'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
-
+import { getCurrentDate } from 'utils/getCurrentDate'
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
   const [createNote, setCreateNote] = useState(false)
 
   const { encodedToken } = useAuth()
+  // console.log(typeof getCurrentDate())
 
   const saveNoteHandler = async e => {
     e.preventDefault()
@@ -17,13 +18,14 @@ function MainContent() {
       const response = await axios.post(
         '/api/notes',
         {
-          note,
+          note: { ...note, createdOn: getCurrentDate() },
         },
         {
           headers: { authorization: encodedToken },
         }
       )
       setNotes(response.data.notes)
+      console.log(notes)
       setShowPalette(false)
       response.status === 201 && noteDispatch({ type: 'RESET' })
       successToast('You have successfully saved the note!')
@@ -31,7 +33,6 @@ function MainContent() {
       errorToast('Something went wrong, Please try again!')
     }
   }
-
   const allFieldsAreFilled = note.title !== '' && note.body !== ''
   return (
     <div>

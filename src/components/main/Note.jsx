@@ -6,9 +6,9 @@ import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
 import { useLocation } from 'react-router-dom'
-export const Note = (note, props) => {
+export const Note = note => {
   const {
-    note: { _id, title, body, color },
+    note: { _id, title, body, color, createdOn },
   } = note
   const { setNotes, setArchiveNotes, trash, setTrash } = useNote()
   const { encodedToken } = useAuth()
@@ -179,7 +179,7 @@ export const Note = (note, props) => {
           <div className="note__title">{title}</div>
           <div className="note__body">{body}</div>
           <div className="text__lg note__bottom">
-            <i className="fa-solid fa-palette input__icons"></i>
+            <span className="text__md">{createdOn}</span>
             <i className="fa-solid fa-tag input__icons"></i>
             <i
               className="fa-solid fa-box-archive input__icons"

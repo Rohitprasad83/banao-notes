@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useReducer } from 'react'
 import { createNoteReducer } from 'reducer/createNoteReducer'
 import { v4 as uuidv4 } from 'uuid'
+import { getCurrentDate } from 'utils/getCurrentDate'
 
 const noteContext = createContext()
 const useNote = () => useContext(noteContext)

@@ -20,7 +20,7 @@ function Home() {
         errorToast('Could not Fetch All notes, please try again')
       }
     })()
-  }, [notes, encodedToken])
+  }, [notes, setNotes, encodedToken])
   return (
     <div className="home__container">
       <Layout />
