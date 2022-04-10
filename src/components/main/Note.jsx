@@ -163,7 +163,7 @@ export const Note = note => {
                   <input
                     type="text"
                     className="tags"
-                    value={tags}
+                    value={editNote.tags}
                     onChange={e =>
                       editNoteDispatch({
                         type: 'TAGS',
@@ -189,17 +189,12 @@ export const Note = note => {
                   ? deleteNoteHandler
                   : deleteArchiveNoteHandler
               }></i>
-            <button
-              className="btn btn__warning"
-              onClick={editNoteHandler}
-              disabled={!allFieldsAreFilled}>
-              Save
-            </button>
-            <button
-              className="btn btn__error"
-              onClick={() => setOpenEdit(false)}>
-              Close
-            </button>
+            <i
+              className="fa-solid fa-check cursor-pointer"
+              onClick={allFieldsAreFilled && editNoteHandler}></i>
+            <i
+              className="fa-solid fa-x cursor-pointer"
+              onClick={() => setOpenEdit(false)}></i>
           </div>
         </div>
       ) : (
@@ -224,12 +219,9 @@ export const Note = note => {
                     ? deleteNoteHandler
                     : deleteArchiveNoteHandler
                 }></i>
-              <button className="btn btn__warning">Save</button>
-              <button
-                className="btn btn__error"
-                onClick={() => setOpenEdit(true)}>
-                Edit
-              </button>
+              <i
+                className="fa-solid fa-pen-to-square cursor-pointer"
+                onClick={() => setOpenEdit(true)}></i>
             </div>
           </div>
         </div>

@@ -125,7 +125,7 @@ function MainContent() {
                 className="fa-solid fa-trash input__icons"
                 onClick={e => noteDispatch({ type: 'RESET' })}></i>
               <i
-                class="fa-solid fa-check cursor-pointer"
+                className="fa-solid fa-check cursor-pointer"
                 onClick={allFieldsAreFilled && saveNoteHandler}></i>
               <i
                 className="fa-solid fa-x cursor-pointer"
