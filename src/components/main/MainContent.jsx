@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { useNote, useAuth } from 'context/index'
-import axios from 'axios'
 import { colors } from './colors'
-import { successToast, errorToast } from 'components/toast/toasts'
-import { getCurrentDate } from 'utils/getCurrentDate'
+import { saveNoteHandler } from 'services/noteServices'
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
@@ -13,31 +11,6 @@ function MainContent() {
 
   const { encodedToken } = useAuth()
 
-  const saveNoteHandler = async e => {
-    e.preventDefault()
-    if (allFieldsAreFilled) {
-      try {
-        const response = await axios.post(
-          '/api/notes',
-          {
-            note: { ...note, createdOn: getCurrentDate() },
-          },
-          {
-            headers: { authorization: encodedToken },
-          }
-        )
-        setNotes(response.data.notes)
-        setShowPalette(false)
-        response.status === 201 && noteDispatch({ type: 'RESET' })
-        successToast('You have successfully saved the note!')
-      } catch (err) {
-        errorToast('Something went wrong, Please try again!')
-      }
-    } else {
-      errorToast('Please fill all the fields')
-    }
-  }
-  const allFieldsAreFilled = note.title !== '' && note.body !== ''
   return (
     <div>
       <div className="text__lg text__center">
@@ -130,7 +103,16 @@ function MainContent() {
                 onClick={e => noteDispatch({ type: 'RESET' })}></i>
               <i
                 className="fa-solid fa-check cursor-pointer"
-                onClick={saveNoteHandler}></i>
+                onClick={e =>
+                  saveNoteHandler(
+                    e,
+                    note,
+                    setNotes,
+                    setShowPalette,
+                    noteDispatch,
+                    encodedToken
+                  )
+                }></i>
               <i
                 className="fa-solid fa-x cursor-pointer"
                 onClick={() => setCreateNote(false)}></i>
