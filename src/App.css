@@ -134,6 +134,30 @@
     cursor: pointer;
 }
 
+.priority {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 12rem;
+    padding: 1rem;
+    gap: 1rem;
+    position: absolute;
+    margin-top: 15rem;
+    background-color: var(--pure-white);
+    border: 1px solid var(--gray);
+    border-radius: 3rem;
+}
+
+.priority>i {
+    align-self: center;
+}
+
+.priority>label {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }

@@ -6,7 +6,7 @@ function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
   const [showTags, setShowTags] = useState(false)
-
+  const [showPriority, setShowPriority] = useState(false)
   const [createNote, setCreateNote] = useState(false)
 
   const { encodedToken } = useAuth()
@@ -92,6 +92,28 @@ function MainContent() {
                       className="fa-solid fa-check cursor-pointer"
                       onClick={() => setShowTags(false)}></i>
                   </div>
+                </div>
+              )}
+              <i
+                className="fa-solid fa-sort input__icons"
+                onClick={() => setShowPriority(!showPriority)}></i>
+              {showPriority && (
+                <div className="priority text__md">
+                  <label htmlFor="low">
+                    <input type="radio" id="low" name="priority" />
+                    Low
+                  </label>
+                  <label htmlFor="medium">
+                    <input type="radio" id="medium" name="priority" />
+                    Medium
+                  </label>
+                  <label htmlFor="high">
+                    <input type="radio" id="high" name="priority" />
+                    High
+                  </label>
+                  <i
+                    className="fa-solid fa-x cursor-pointer"
+                    onClick={() => setShowPriority(false)}></i>
                 </div>
               )}
               <i

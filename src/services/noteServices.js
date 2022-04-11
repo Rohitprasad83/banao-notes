@@ -111,7 +111,6 @@ const archiveNoteHandler = async(_id, note, setNotes, encodedToken) => {
         setNotes(response.data.notes)
         successToast('Note has been successfully archived')
     } catch (error) {
-        console.log(error)
         errorToast('Note was not archived, Please try again!')
     }
 }
