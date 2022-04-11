@@ -14,6 +14,7 @@ const NoteContextProvider = ({ children }) => {
     archive: false,
     pinned: false,
     tags: '',
+    priority: 'medium',
   })
 
   const [notes, setNotes] = useState([])

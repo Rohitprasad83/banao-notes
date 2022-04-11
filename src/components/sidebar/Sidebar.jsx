@@ -34,11 +34,11 @@ function Sidebar() {
         <i className="fa-solid fa-filter input__icons"></i>
         <span> Sort By and Filters </span>
       </div>
-      <div className="sidebar__items font__bold">Sort By</div>
+      <div className="sidebar__items font__bold">Sort By Time</div>
       <div className="sidebar__items text__md">
         <input
           type="radio"
-          name="sortBy"
+          name="sortByTime"
           id="Newest First"
           onChange={e => filterDispatch({ type: 'NEWEST_FIRST' })}
         />
@@ -47,13 +47,38 @@ function Sidebar() {
       <div className="sidebar__items text__md">
         <input
           type="radio"
-          name="sortBy"
+          name="sortByTime"
           id="Oldest First"
           onChange={e => filterDispatch({ type: 'OLDEST_FIRST' })}
         />
         <label htmlFor="Oldest First">Oldest First</label>
       </div>
-      <div className="sidebar__items font__bold">Filter By</div>
+      <div className="sidebar__items font__bold">Filter By Priority</div>
+      <div className="sidebar__items text__md">
+        <input
+          type="checkbox"
+          id="low"
+          onChange={e => filterDispatch({ type: 'LOW' })}
+        />
+        <label htmlFor="low">Low</label>
+      </div>
+      <div className="sidebar__items text__md">
+        <input
+          type="checkbox"
+          id="medium"
+          onChange={e => filterDispatch({ type: 'MEDIUM' })}
+        />
+        <label htmlFor="medium">Medium</label>
+      </div>
+      <div className="sidebar__items text__md">
+        <input
+          type="checkbox"
+          id="high"
+          onChange={e => filterDispatch({ type: 'HIGH' })}
+        />
+        <label htmlFor="high">High</label>
+      </div>
+      <div className="sidebar__items font__bold">Filter By Tags</div>
       <div className="sidebar__items text__md">
         <input type="checkbox" name="sortBy" id="Label 1" />
         <label htmlFor="Label 1">Label 1</label>

@@ -100,15 +100,30 @@ function MainContent() {
               {showPriority && (
                 <div className="priority text__md">
                   <label htmlFor="low">
-                    <input type="radio" id="low" name="priority" />
+                    <input
+                      type="radio"
+                      id="low"
+                      name="priority"
+                      onClick={() => noteDispatch({ type: 'PRIORITY_LOW' })}
+                    />
                     Low
                   </label>
                   <label htmlFor="medium">
-                    <input type="radio" id="medium" name="priority" />
+                    <input
+                      type="radio"
+                      id="medium"
+                      name="priority"
+                      onClick={() => noteDispatch({ type: 'PRIORITY_MED' })}
+                    />
                     Medium
                   </label>
                   <label htmlFor="high">
-                    <input type="radio" id="high" name="priority" />
+                    <input
+                      type="radio"
+                      id="high"
+                      name="priority"
+                      onClick={() => noteDispatch({ type: 'PRIORITY_HIGH' })}
+                    />
                     High
                   </label>
                   <i

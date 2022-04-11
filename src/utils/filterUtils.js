@@ -15,4 +15,22 @@ function sortNotesByAge(notes, sortBy) {
     }
 }
 
-export { sortNotesByAge }
+function filterNotesByPriority(notes, priority) {
+    let filteredNotes = []
+    const priorityArray = Object.keys(priority)
+    const checkEveryPriorityIsFalse = categoryName =>
+        priority[categoryName] === false
+    const AllCategoryAreFalse = priorityArray.every(checkEveryPriorityIsFalse)
+
+    for (const priorityName of priorityArray) {
+        if (priority[priorityName]) {
+            const temp = notes.filter(
+                ({ priority }) => priority.toLowerCase() === priorityName.toLowerCase()
+            )
+            filteredNotes = [...filteredNotes, ...temp]
+        }
+    }
+    return AllCategoryAreFalse ? notes : filteredNotes
+}
+
+export { sortNotesByAge, filterNotesByPriority }

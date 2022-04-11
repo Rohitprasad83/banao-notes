@@ -16,13 +16,14 @@ import {
 
 export const Note = note => {
   const {
-    note: { _id, title, body, color, createdOn, tags },
+    note: { _id, title, body, color, createdOn, tags, priority },
   } = note
   const { setNotes, setArchiveNotes, trash, setTrash, noteDispatch } = useNote()
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
   const [showTags, setShowTags] = useState(false)
+  const [showPriority, setShowPriority] = useState(false)
 
   const [editNote, editNoteDispatch] = useReducer(createNoteReducer, {
     _id: _id,
@@ -30,6 +31,7 @@ export const Note = note => {
     body: body,
     color: color,
     tags: tags,
+    priority: priority,
   })
 
   const location = useLocation()
@@ -111,6 +113,43 @@ export const Note = note => {
               </div>
             )}
             <i
+              className="fa-solid fa-sort input__icons"
+              onClick={() => setShowPriority(!showPriority)}></i>
+            {showPriority && (
+              <div className="priority text__md">
+                <label htmlFor="low">
+                  <input
+                    type="radio"
+                    id="low"
+                    name="priority"
+                    onClick={() => editNoteDispatch({ type: 'PRIORITY_LOW' })}
+                  />
+                  Low
+                </label>
+                <label htmlFor="medium">
+                  <input
+                    type="radio"
+                    id="medium"
+                    name="priority"
+                    onClick={() => editNoteDispatch({ type: 'PRIORITY_MED' })}
+                  />
+                  Medium
+                </label>
+                <label htmlFor="high">
+                  <input
+                    type="radio"
+                    id="high"
+                    name="priority"
+                    onClick={() => editNoteDispatch({ type: 'PRIORITY_HIGH' })}
+                  />
+                  High
+                </label>
+                <i
+                  className="fa-solid fa-x cursor-pointer"
+                  onClick={() => setShowPriority(false)}></i>
+              </div>
+            )}
+            <i
               className="fa-solid fa-box-archive input__icons"
               onClick={archiveNoteHandler}></i>
             <i
@@ -161,6 +200,7 @@ export const Note = note => {
           <div className="text__lg note__bottom">
             <div className="text__md">Created At {createdOn}</div>
             <div className="text__md">Tags: {tags}</div>
+            <div className="text__md">Priority: {priority}</div>
             <div className="text__lg note__buttons">
               {pathName !== '/trash' && (
                 <i

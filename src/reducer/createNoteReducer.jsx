@@ -12,6 +12,12 @@ function createNoteReducer(state, action) {
       return { ...state, pinned: action.payload }
     case 'TAGS':
       return { ...state, tags: action.payload }
+    case 'PRIORITY_LOW':
+      return { ...state, priority: 'low' }
+    case 'PRIORITY_MED':
+      return { ...state, priority: 'medium' }
+    case 'PRIORITY_HIGH':
+      return { ...state, priority: 'high' }
     case 'RESET':
       return {
         ...state,
@@ -21,6 +27,7 @@ function createNoteReducer(state, action) {
         archive: false,
         pinned: false,
         tags: '',
+        priority: 'medium',
       }
     default:
       return { ...state }
