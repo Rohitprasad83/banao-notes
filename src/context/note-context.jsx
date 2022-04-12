@@ -13,7 +13,7 @@ const NoteContextProvider = ({ children }) => {
     color: '#fff',
     archive: false,
     pinned: false,
-    tags: '',
+    tags: [],
     priority: 'medium',
   })
 

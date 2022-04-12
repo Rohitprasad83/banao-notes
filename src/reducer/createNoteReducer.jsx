@@ -11,7 +11,12 @@ function createNoteReducer(state, action) {
     case 'PINNED':
       return { ...state, pinned: action.payload }
     case 'TAGS':
-      return { ...state, tags: action.payload }
+      return {
+        ...state,
+        tags: [...state.tags].includes(action.payload.item)
+          ? [...state.tags].filter(item => item !== action.payload.item)
+          : [...state.tags, action.payload.item],
+      }
     case 'PRIORITY_LOW':
       return { ...state, priority: 'low' }
     case 'PRIORITY_MED':

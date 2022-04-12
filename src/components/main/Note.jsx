@@ -1,12 +1,9 @@
 import { useNote, useAuth } from 'context/index'
-import axios from 'axios'
 import { useState, useReducer } from 'react'
 import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
-import { successToast, errorToast } from 'components/toast/toasts'
 import { useLocation } from 'react-router-dom'
 import {
-  saveNoteHandler,
   deleteNoteHandler,
   deleteArchiveNoteHandler,
   archiveNoteHandler,
@@ -34,9 +31,9 @@ export const Note = note => {
     priority: priority,
   })
 
+  const allTags = tags.join(',')
   const location = useLocation()
   const pathName = location.pathname
-
   const allFieldsAreFilled = editNote.title !== '' && editNote.body !== ''
 
   return (
@@ -199,7 +196,7 @@ export const Note = note => {
           <div className="note__body">{body}</div>
           <div className="text__lg note__bottom">
             <div className="text__md">Created At {createdOn}</div>
-            <div className="text__md">Tags: {tags}</div>
+            <div className="text__md flex-row">Tags: {allTags}</div>
             <div className="text__md">Priority: {priority}</div>
             <div className="text__lg note__buttons">
               {pathName !== '/trash' && (

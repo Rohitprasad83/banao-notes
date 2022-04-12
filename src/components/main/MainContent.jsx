@@ -8,6 +8,15 @@ function MainContent() {
   const [showTags, setShowTags] = useState(false)
   const [showPriority, setShowPriority] = useState(false)
   const [createNote, setCreateNote] = useState(false)
+  const typeOfTags = [
+    'Work',
+    'Exercise',
+    'Health',
+    'School',
+    'Teams',
+    'Chores',
+    'Creativity',
+  ]
 
   const { encodedToken } = useAuth()
 
@@ -70,28 +79,36 @@ function MainContent() {
               <i
                 className="fa-solid fa-tags input__icons"
                 onClick={() => setShowTags(!showTags)}></i>
-              {showTags && (
-                <div className="palette">
-                  <div className="text__md">
-                    Add Tag
-                    <input
-                      type="text"
-                      className="tags"
-                      placeholder="Tag"
-                      value={note.tags}
-                      onChange={e =>
-                        noteDispatch({
-                          type: 'TAGS',
-                          payload: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
+              {/* {showTags && (
+                <div>
+                  <SelectingTags />
                   <div>
                     <i
                       className="fa-solid fa-check cursor-pointer"
                       onClick={() => setShowTags(false)}></i>
                   </div>
+                </div>
+              )} */}
+              {/* {showTags && } */}
+              {showTags && (
+                <div className="tags__input text__md">
+                  {typeOfTags.map(item => (
+                    <span>
+                      <input
+                        type="checkbox"
+                        name={item}
+                        value={item}
+                        id={item}
+                        onClick={() =>
+                          noteDispatch({ type: 'TAGS', payload: { item } })
+                        }
+                      />
+                      <label htmlFor={item}>{item}</label>
+                    </span>
+                  ))}
+                  <i
+                    className="fa-solid fa-check cursor-pointer"
+                    onClick={() => setShowTags(false)}></i>
                 </div>
               )}
               <i
