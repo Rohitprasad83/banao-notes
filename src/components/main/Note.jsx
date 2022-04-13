@@ -21,7 +21,15 @@ export const Note = note => {
   const [showPalette, setShowPalette] = useState(false)
   const [showTags, setShowTags] = useState(false)
   const [showPriority, setShowPriority] = useState(false)
-
+  const typeOfTags = [
+    'Work',
+    'Exercise',
+    'Health',
+    'School',
+    'Teams',
+    'Chores',
+    'Creativity',
+  ]
   const [editNote, editNoteDispatch] = useReducer(createNoteReducer, {
     _id: _id,
     title: title,
@@ -30,8 +38,8 @@ export const Note = note => {
     tags: tags,
     priority: priority,
   })
-
   const allTags = tags.join(',')
+
   const location = useLocation()
   const pathName = location.pathname
   const allFieldsAreFilled = editNote.title !== '' && editNote.body !== ''
@@ -87,26 +95,25 @@ export const Note = note => {
               className="fa-solid fa-tag input__icons"
               onClick={() => setShowTags(!showTags)}></i>
             {showTags && (
-              <div className="palette">
-                <div className="text__md">
-                  Add Tag
-                  <input
-                    type="text"
-                    className="tags"
-                    value={editNote.tags}
-                    onChange={e =>
-                      editNoteDispatch({
-                        type: 'TAGS',
-                        payload: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <i
-                    className="fa-solid fa-check cursor-pointer"
-                    onClick={() => setShowTags(false)}></i>
-                </div>
+              <div className="tags__input text__md">
+                {typeOfTags.map((item, index) => (
+                  <span key={index}>
+                    <input
+                      type="checkbox"
+                      name={item}
+                      value={item}
+                      id={item}
+                      checked={editNote.tags.includes(item)}
+                      onChange={() =>
+                        editNoteDispatch({ type: 'TAGS', payload: { item } })
+                      }
+                    />
+                    <label htmlFor={item}>{item}</label>
+                  </span>
+                ))}
+                <i
+                  className="fa-solid fa-check cursor-pointer"
+                  onClick={() => setShowTags(false)}></i>
               </div>
             )}
             <i

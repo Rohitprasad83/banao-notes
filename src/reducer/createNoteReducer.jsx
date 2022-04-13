@@ -11,6 +11,7 @@ function createNoteReducer(state, action) {
     case 'PINNED':
       return { ...state, pinned: action.payload }
     case 'TAGS':
+      console.log(action.payload.item)
       return {
         ...state,
         tags: [...state.tags].includes(action.payload.item)

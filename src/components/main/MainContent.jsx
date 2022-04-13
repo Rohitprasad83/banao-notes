@@ -79,21 +79,10 @@ function MainContent() {
               <i
                 className="fa-solid fa-tags input__icons"
                 onClick={() => setShowTags(!showTags)}></i>
-              {/* {showTags && (
-                <div>
-                  <SelectingTags />
-                  <div>
-                    <i
-                      className="fa-solid fa-check cursor-pointer"
-                      onClick={() => setShowTags(false)}></i>
-                  </div>
-                </div>
-              )} */}
-              {/* {showTags && } */}
               {showTags && (
                 <div className="tags__input text__md">
-                  {typeOfTags.map(item => (
-                    <span>
+                  {typeOfTags.map((item, index) => (
+                    <span key={index}>
                       <input
                         type="checkbox"
                         name={item}
