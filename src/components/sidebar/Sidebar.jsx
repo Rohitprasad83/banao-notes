@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom'
 import { useFilter } from 'context/index'
 function Sidebar() {
   const { filterDispatch } = useFilter()
+  const typeOfTags = [
+    'Work',
+    'Exercise',
+    'Health',
+    'School',
+    'Teams',
+    'Chores',
+    'Creativity',
+  ]
   return (
     <div className="sidebar text__lg">
       <div className="sidebar__items">
@@ -79,26 +88,14 @@ function Sidebar() {
         <label htmlFor="high">High</label>
       </div>
       <div className="sidebar__items font__bold">Filter By Tags</div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 1" />
-        <label htmlFor="Label 1">Label 1</label>
-      </div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 2" />
-        <label htmlFor="Label 2">Label 2</label>
-      </div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 3" />
-        <label htmlFor="Label 3">Label 3</label>
-      </div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 4" />
-        <label htmlFor="Label 4">Label 4</label>
-      </div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 5" />
-        <label htmlFor="Label 5">Label 5</label>
-      </div>
+      {typeOfTags.map(tag => {
+        return (
+          <div className="sidebar__items text__md">
+            <input type="checkbox" name="sortBy" id={tag} />
+            <label htmlFor={tag}>{tag}</label>
+          </div>
+        )
+      })}
     </div>
   )
 }
