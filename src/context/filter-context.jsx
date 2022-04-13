@@ -10,6 +10,15 @@ const FilterContextProvider = ({ children }) => {
       medium: false,
       high: false,
     },
+    tags: {
+      Work: false,
+      Exercise: false,
+      Health: false,
+      School: false,
+      Teams: false,
+      Chores: false,
+      Creativity: false,
+    },
     sortBy: null,
   })
 

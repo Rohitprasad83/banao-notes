@@ -4,15 +4,20 @@ import { errorToast } from 'components/toast/toasts'
 import { useEffect } from 'react'
 import { useNote, useAuth, useFilter } from 'context/index'
 import axios from 'axios'
-import { sortNotesByAge, filterNotesByPriority } from 'utils/filterUtils'
+import {
+  sortNotesByAge,
+  filterNotesByPriority,
+  filterNotesByTags,
+} from 'utils/filterUtils'
 
 function Home() {
   const { encodedToken } = useAuth()
   const { notes, setNotes } = useNote()
   const { filters } = useFilter()
-
-  const filteredNotes = filterNotesByPriority(notes, filters.priority)
+  const filterByTags = filterNotesByTags(notes, filters.tags)
+  const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
   const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
+
   useEffect(() => {
     ;(async () => {
       try {

@@ -88,11 +88,15 @@ function Sidebar() {
         <label htmlFor="high">High</label>
       </div>
       <div className="sidebar__items font__bold">Filter By Tags</div>
-      {typeOfTags.map(tag => {
+      {typeOfTags.map((tag, index) => {
         return (
-          <div className="sidebar__items text__md">
-            <input type="checkbox" name="sortBy" id={tag} />
-            <label htmlFor={tag}>{tag}</label>
+          <div className="sidebar__items text__md" key={index}>
+            <input
+              type="checkbox"
+              id={`sidebar ${tag}`}
+              onChange={() => filterDispatch({ type: tag })}
+            />
+            <label htmlFor={`sidebar ${tag}`}>{tag}</label>
           </div>
         )
       })}

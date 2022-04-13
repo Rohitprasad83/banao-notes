@@ -11,7 +11,6 @@ function createNoteReducer(state, action) {
     case 'PINNED':
       return { ...state, pinned: action.payload }
     case 'TAGS':
-      console.log(action.payload.item)
       return {
         ...state,
         tags: [...state.tags].includes(action.payload.item)
@@ -32,7 +31,7 @@ function createNoteReducer(state, action) {
         color: '',
         archive: false,
         pinned: false,
-        tags: '',
+        tags: [],
         priority: 'medium',
       }
     default:

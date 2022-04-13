@@ -33,4 +33,19 @@ function filterNotesByPriority(notes, priority) {
     return AllCategoryAreFalse ? notes : filteredNotes
 }
 
-export { sortNotesByAge, filterNotesByPriority }
+function filterNotesByTags(notes, tags) {
+    let filteredNotes = []
+    const tagsArray = Object.keys(tags)
+    const checkEveryTagsIsFalse = categoryName => tags[categoryName] === false
+    const AllTagsAreFalse = tagsArray.every(checkEveryTagsIsFalse)
+
+    for (const TagsName of tagsArray) {
+        if (tags[TagsName]) {
+            const temp = notes.filter(({ tags }) => tags.includes(TagsName))
+            filteredNotes = [...filteredNotes, ...temp]
+        }
+    }
+    return AllTagsAreFalse ? notes : filteredNotes
+}
+
+export { sortNotesByAge, filterNotesByPriority, filterNotesByTags }

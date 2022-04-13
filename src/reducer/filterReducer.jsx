@@ -19,6 +19,26 @@ function filterReducer(state, action) {
         ...state,
         priority: { ...state.priority, high: !state.priority.high },
       }
+    case 'Work':
+      return { ...state, tags: { ...state.tags, Work: !state.tags.Work } }
+    case 'Exercise':
+      return {
+        ...state,
+        tags: { ...state.tags, Exercise: !state.tags.Exercise },
+      }
+    case 'Health':
+      return { ...state, tags: { ...state.tags, Health: !state.tags.Health } }
+    case 'School':
+      return { ...state, tags: { ...state.tags, School: !state.tags.School } }
+    case 'Teams':
+      return { ...state, tags: { ...state.tags, Teams: !state.tags.Teams } }
+    case 'Chores':
+      return { ...state, tags: { ...state.tags, Chores: !state.tags.Chores } }
+    case 'Creativity':
+      return {
+        ...state,
+        tags: { ...state.tags, Creativity: !state.tags.Creativity },
+      }
     default:
       return { ...state }
   }

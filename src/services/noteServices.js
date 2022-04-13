@@ -27,6 +27,7 @@ const saveNoteHandler = async(
             response.status === 201 && noteDispatch({ type: 'RESET' })
             successToast('You have successfully saved the note!')
         } catch (err) {
+            console.log(err)
             errorToast('Something went wrong, Please try again!')
         }
     } else {
