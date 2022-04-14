@@ -66,26 +66,26 @@ function Sidebar() {
       <div className="sidebar__items text__md">
         <input
           type="checkbox"
-          id="low"
+          id="sidebar low"
           onChange={e => filterDispatch({ type: 'LOW' })}
         />
-        <label htmlFor="low">Low</label>
+        <label htmlFor="sidebar low">Low</label>
       </div>
       <div className="sidebar__items text__md">
         <input
           type="checkbox"
-          id="medium"
+          id="sidebar medium"
           onChange={e => filterDispatch({ type: 'MEDIUM' })}
         />
-        <label htmlFor="medium">Medium</label>
+        <label htmlFor="sidebar medium">Medium</label>
       </div>
       <div className="sidebar__items text__md">
         <input
           type="checkbox"
-          id="high"
+          id="sidebar high"
           onChange={e => filterDispatch({ type: 'HIGH' })}
         />
-        <label htmlFor="high">High</label>
+        <label htmlFor="sidebar high">High</label>
       </div>
       <div className="sidebar__items font__bold">Filter By Tags</div>
       {typeOfTags.map((tag, index) => {
