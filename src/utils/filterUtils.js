@@ -45,6 +45,8 @@ function filterNotesByTags(notes, tags) {
             filteredNotes = [...filteredNotes, ...temp]
         }
     }
+
+    filteredNotes = [...new Set(filteredNotes)]
     return AllTagsAreFalse ? notes : filteredNotes
 }
 
