@@ -10,6 +10,8 @@ function createNoteReducer(state, action) {
       return { ...state, archive: !state.archive }
     case 'PINNED':
       return { ...state, pinned: action.payload }
+    case 'TAGS':
+      return { ...state, tags: action.payload }
     case 'RESET':
       return {
         ...state,
@@ -18,6 +20,7 @@ function createNoteReducer(state, action) {
         color: '',
         archive: false,
         pinned: false,
+        tags: '',
       }
     default:
       return { ...state }

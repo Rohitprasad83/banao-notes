@@ -20,16 +20,18 @@ function Home() {
         errorToast('Could not Fetch All notes, please try again')
       }
     })()
-  }, [notes, encodedToken])
+  }, [notes, setNotes, encodedToken])
   return (
     <div className="home__container">
       <Layout />
       <div className="main__container">
         <h2 className="text__center">Home Page </h2>
         <MainContent />
-        {notes.map(note => (
-          <Note key={note._id} note={note} />
-        ))}
+        <div className="notes__container">
+          {notes.map(note => (
+            <Note key={note._id} note={note} />
+          ))}
+        </div>
       </div>
     </div>
   )

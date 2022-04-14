@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNote, useAuth } from 'context/index'
 import axios from 'axios'
 import { useState, useReducer } from 'react'
@@ -6,98 +5,35 @@ import { createNoteReducer } from 'reducer/createNoteReducer'
 import { colors } from './colors'
 import { successToast, errorToast } from 'components/toast/toasts'
 import { useLocation } from 'react-router-dom'
-export const Note = (note, props) => {
+import {
+  saveNoteHandler,
+  deleteNoteHandler,
+  deleteArchiveNoteHandler,
+  archiveNoteHandler,
+  restoreNoteHandler,
+  editNoteHandler,
+} from 'services/noteServices'
+
+export const Note = note => {
   const {
-    note: { _id, title, body, color },
+    note: { _id, title, body, color, createdOn, tags },
   } = note
-  const { setNotes, setArchiveNotes } = useNote()
+  const { setNotes, setArchiveNotes, trash, setTrash, noteDispatch } = useNote()
   const { encodedToken } = useAuth()
   const [openEdit, setOpenEdit] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
+  const [showTags, setShowTags] = useState(false)
+
   const [editNote, editNoteDispatch] = useReducer(createNoteReducer, {
     _id: _id,
     title: title,
     body: body,
     color: color,
+    tags: tags,
   })
 
   const location = useLocation()
-  const deleteNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.delete(`/api/notes/${_id}`, {
-        headers: { authorization: encodedToken },
-      })
-      setNotes(response.data.notes)
-      successToast('Successfully deleted the note')
-    } catch (err) {
-      errorToast('Could not delete the note, please try again!')
-    }
-  }
-
-  const deleteArchiveNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.delete(`/api/archives/delete/${_id}`, {
-        headers: { authorization: encodedToken },
-      })
-      setArchiveNotes(response.data.archives)
-      successToast('Successfully deleted the note')
-    } catch (err) {
-      errorToast('Could not delete the note, please try again!')
-    }
-  }
-  const archiveNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.post(
-        `/api/notes/archives/${_id}`,
-        { note },
-        { headers: { authorization: encodedToken } }
-      )
-      setNotes(response.data.notes)
-      successToast('Note has been successfully archived')
-    } catch (error) {
-      successToast('Note was not archived, Please try again!')
-    }
-  }
-  const editNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.post(
-        `/api/notes/${_id}`,
-        {
-          note: editNote,
-        },
-        {
-          headers: { authorization: encodedToken },
-        }
-      )
-      successToast('You have Successfully Edited the note')
-      setOpenEdit(false)
-      setNotes(response.data.notes)
-    } catch (err) {
-      errorToast('Could not Edit the note, please try again!')
-    }
-  }
-
-  const restoreNoteHandler = async e => {
-    e.preventDefault()
-    try {
-      const response = await axios.post(
-        `/api/archives/restore/${_id}`,
-        {},
-        {
-          headers: { authorization: encodedToken },
-        }
-      )
-      successToast('You have Successfully restored the note')
-      setNotes(response.data.notes)
-      setArchiveNotes(response.data.archives)
-    } catch (err) {
-      errorToast('Could not restore the note, please try again!')
-    }
-  }
+  const pathName = location.pathname
 
   const allFieldsAreFilled = editNote.title !== '' && editNote.body !== ''
 
@@ -123,7 +59,7 @@ export const Note = (note, props) => {
             onChange={e =>
               editNoteDispatch({ type: 'BODY', payload: e.target.value })
             }></textarea>
-          <div className="text__lg note__bottom">
+          <div className="text__lg note__buttons">
             <i
               className="fa-solid fa-palette input__icons palette__container"
               onClick={() => setShowPalette(!showPalette)}></i>
@@ -148,28 +84,74 @@ export const Note = (note, props) => {
                 </div>
               </div>
             )}
-            <i className="fa-solid fa-tag input__icons"></i>
+            <i
+              className="fa-solid fa-tag input__icons"
+              onClick={() => setShowTags(!showTags)}></i>
+            {showTags && (
+              <div className="palette">
+                <div className="text__md">
+                  Add Tag
+                  <input
+                    type="text"
+                    className="tags"
+                    value={editNote.tags}
+                    onChange={e =>
+                      editNoteDispatch({
+                        type: 'TAGS',
+                        payload: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <i
+                    className="fa-solid fa-check cursor-pointer"
+                    onClick={() => setShowTags(false)}></i>
+                </div>
+              </div>
+            )}
             <i
               className="fa-solid fa-box-archive input__icons"
               onClick={archiveNoteHandler}></i>
             <i
               className="fa-solid fa-trash input__icons"
-              onClick={
-                location.pathname === '/home'
-                  ? deleteNoteHandler
-                  : deleteArchiveNoteHandler
+              onClick={e =>
+                pathName === '/home'
+                  ? deleteNoteHandler(
+                      e,
+                      _id,
+                      setNotes,
+                      setTrash,
+                      trash,
+                      note,
+                      encodedToken
+                    )
+                  : deleteArchiveNoteHandler(
+                      e,
+                      _id,
+                      note,
+                      trash,
+                      setArchiveNotes,
+                      setTrash,
+                      encodedToken
+                    )
               }></i>
-            <button
-              className="btn btn__warning"
-              onClick={editNoteHandler}
-              disabled={!allFieldsAreFilled}>
-              Save
-            </button>
-            <button
-              className="btn btn__error"
-              onClick={() => setOpenEdit(false)}>
-              Close
-            </button>
+            <i
+              className="fa-solid fa-check cursor-pointer"
+              onClick={e =>
+                allFieldsAreFilled &&
+                editNoteHandler(
+                  e,
+                  _id,
+                  editNote,
+                  setOpenEdit,
+                  setNotes,
+                  encodedToken
+                )
+              }></i>
+            <i
+              className="fa-solid fa-x cursor-pointer"
+              onClick={() => setOpenEdit(false)}></i>
           </div>
         </div>
       ) : (
@@ -177,28 +159,55 @@ export const Note = (note, props) => {
           <div className="note__title">{title}</div>
           <div className="note__body">{body}</div>
           <div className="text__lg note__bottom">
-            <i className="fa-solid fa-palette input__icons"></i>
-            <i className="fa-solid fa-tag input__icons"></i>
-            <i
-              className="fa-solid fa-box-archive input__icons"
-              onClick={
-                location.pathname === '/home'
-                  ? archiveNoteHandler
-                  : restoreNoteHandler
-              }></i>
-            <i
-              className="fa-solid fa-trash input__icons"
-              onClick={
-                location.pathname === '/home'
-                  ? deleteNoteHandler
-                  : deleteArchiveNoteHandler
-              }></i>
-            <button className="btn btn__warning">Save</button>
-            <button
-              className="btn btn__error"
-              onClick={() => setOpenEdit(true)}>
-              Edit
-            </button>
+            <div className="text__md">Created At {createdOn}</div>
+            <div className="text__md">Tags: {tags}</div>
+            <div className="text__lg note__buttons">
+              {pathName !== '/trash' && (
+                <i
+                  className="fa-solid fa-box-archive input__icons"
+                  onClick={() =>
+                    pathName === '/home'
+                      ? archiveNoteHandler(_id, note, setNotes, encodedToken)
+                      : restoreNoteHandler(
+                          _id,
+                          note,
+                          setNotes,
+                          encodedToken,
+                          setArchiveNotes
+                        )
+                  }></i>
+              )}
+              {pathName !== '/trash' && (
+                <i
+                  className="fa-solid fa-trash input__icons"
+                  onClick={e =>
+                    pathName === '/home'
+                      ? deleteNoteHandler(
+                          e,
+                          _id,
+                          setNotes,
+                          setTrash,
+                          trash,
+                          note,
+                          encodedToken
+                        )
+                      : deleteArchiveNoteHandler(
+                          e,
+                          _id,
+                          note,
+                          trash,
+                          setArchiveNotes,
+                          setTrash,
+                          encodedToken
+                        )
+                  }></i>
+              )}
+              {pathName !== '/trash' && (
+                <i
+                  className="fa-solid fa-pen-to-square cursor-pointer"
+                  onClick={() => setOpenEdit(true)}></i>
+              )}
+            </div>
           </div>
         </div>
       )}
