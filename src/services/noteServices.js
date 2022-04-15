@@ -27,6 +27,7 @@ const saveNoteHandler = async(
             response.status === 201 && noteDispatch({ type: 'RESET' })
             successToast('You have successfully saved the note!')
         } catch (err) {
+            console.log(err)
             errorToast('Something went wrong, Please try again!')
         }
     } else {
@@ -111,7 +112,6 @@ const archiveNoteHandler = async(_id, note, setNotes, encodedToken) => {
         setNotes(response.data.notes)
         successToast('Note has been successfully archived')
     } catch (error) {
-        console.log(error)
         errorToast('Note was not archived, Please try again!')
     }
 }

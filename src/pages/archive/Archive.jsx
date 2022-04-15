@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Layout, MainContent } from 'components/index'
-import { successToast, errorToast } from 'components/toast/toasts'
-import { useNote, useAuth } from 'context/index'
+import { errorToast } from 'components/toast/toasts'
+import { useNote, useAuth, useFilter } from 'context/index'
 import axios from 'axios'
 import { Note } from 'components/main/Note'
+import { sortNotesByAge } from 'utils/filterUtils'
 
 function Archive() {
   const { encodedToken } = useAuth()
-
+  const { filters } = useFilter()
   const { archiveNotes, setArchiveNotes } = useNote()
+
+  const sortedNotes = sortNotesByAge(archiveNotes, filters.sortBy)
+
   useEffect(() => {
     ;(async () => {
       try {
@@ -27,9 +31,11 @@ function Archive() {
       <div className="main__container">
         <h2 className="text__center">Archive </h2>
         <MainContent />
-        {archiveNotes.map(note => (
-          <Note key={note._id} note={note} />
-        ))}
+        <div className="notes__container">
+          {sortedNotes.map(note => (
+            <Note key={note._id} note={note} />
+          ))}
+        </div>
       </div>
     </div>
   )

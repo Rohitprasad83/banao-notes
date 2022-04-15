@@ -2,12 +2,21 @@ import { Layout, MainContent } from 'components/index'
 import { Note } from 'components/main/Note'
 import { errorToast } from 'components/toast/toasts'
 import { useEffect } from 'react'
-import { useNote, useAuth } from 'context/index'
+import { useNote, useAuth, useFilter } from 'context/index'
 import axios from 'axios'
+import {
+  sortNotesByAge,
+  filterNotesByPriority,
+  filterNotesByTags,
+} from 'utils/filterUtils'
 
 function Home() {
   const { encodedToken } = useAuth()
   const { notes, setNotes } = useNote()
+  const { filters } = useFilter()
+  const filterByTags = filterNotesByTags(notes, filters.tags)
+  const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
+  const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
 
   useEffect(() => {
     ;(async () => {
@@ -28,7 +37,7 @@ function Home() {
         <h2 className="text__center">Home Page </h2>
         <MainContent />
         <div className="notes__container">
-          {notes.map(note => (
+          {sortedNotes.map(note => (
             <Note key={note._id} note={note} />
           ))}
         </div>

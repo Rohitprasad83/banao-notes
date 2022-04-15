@@ -1,6 +1,17 @@
 import './Sidebar.css'
 import { Link } from 'react-router-dom'
+import { useFilter } from 'context/index'
 function Sidebar() {
+  const { filterDispatch } = useFilter()
+  const typeOfTags = [
+    'Work',
+    'Exercise',
+    'Health',
+    'School',
+    'Teams',
+    'Chores',
+    'Creativity',
+  ]
   return (
     <div className="sidebar text__lg">
       <div className="sidebar__items">
@@ -32,36 +43,63 @@ function Sidebar() {
         <i className="fa-solid fa-filter input__icons"></i>
         <span> Sort By and Filters </span>
       </div>
-      <div className="sidebar__items font__bold">Sort By</div>
+      <div className="sidebar__items font__bold">Sort By Time</div>
       <div className="sidebar__items text__md">
-        <input type="radio" name="sortBy" id="Newest First" />
+        <input
+          type="radio"
+          name="sortByTime"
+          id="Newest First"
+          onChange={e => filterDispatch({ type: 'NEWEST_FIRST' })}
+        />
         <label htmlFor="Newest First">Newest first</label>
       </div>
       <div className="sidebar__items text__md">
-        <input type="radio" name="sortBy" id="Oldest First" />
+        <input
+          type="radio"
+          name="sortByTime"
+          id="Oldest First"
+          onChange={e => filterDispatch({ type: 'OLDEST_FIRST' })}
+        />
         <label htmlFor="Oldest First">Oldest First</label>
       </div>
-      <div className="sidebar__items font__bold">Filter By</div>
+      <div className="sidebar__items font__bold">Filter By Priority</div>
       <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 1" />
-        <label htmlFor="Label 1">Label 1</label>
+        <input
+          type="checkbox"
+          id="sidebar low"
+          onChange={e => filterDispatch({ type: 'LOW' })}
+        />
+        <label htmlFor="sidebar low">Low</label>
       </div>
       <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 2" />
-        <label htmlFor="Label 2">Label 2</label>
+        <input
+          type="checkbox"
+          id="sidebar medium"
+          onChange={e => filterDispatch({ type: 'MEDIUM' })}
+        />
+        <label htmlFor="sidebar medium">Medium</label>
       </div>
       <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 3" />
-        <label htmlFor="Label 3">Label 3</label>
+        <input
+          type="checkbox"
+          id="sidebar high"
+          onChange={e => filterDispatch({ type: 'HIGH' })}
+        />
+        <label htmlFor="sidebar high">High</label>
       </div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 4" />
-        <label htmlFor="Label 4">Label 4</label>
-      </div>
-      <div className="sidebar__items text__md">
-        <input type="checkbox" name="sortBy" id="Label 5" />
-        <label htmlFor="Label 5">Label 5</label>
-      </div>
+      <div className="sidebar__items font__bold">Filter By Tags</div>
+      {typeOfTags.map((tag, index) => {
+        return (
+          <div className="sidebar__items text__md" key={index}>
+            <input
+              type="checkbox"
+              id={`sidebar ${tag}`}
+              onChange={() => filterDispatch({ type: tag })}
+            />
+            <label htmlFor={`sidebar ${tag}`}>{tag}</label>
+          </div>
+        )
+      })}
     </div>
   )
 }
