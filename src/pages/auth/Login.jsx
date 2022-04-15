@@ -27,7 +27,6 @@ export function Login() {
         email,
         password,
       })
-      successToast('You have been logged in successfully')
       localStorage.setItem('token', response.data.encodedToken)
       setUsers(response.data.foundUser)
       response.status === 200 && navigation('/home')

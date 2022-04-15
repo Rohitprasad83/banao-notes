@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useReducer, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import authStyle from './auth.module.css'
@@ -19,7 +19,14 @@ export function Signup() {
   const [showPassword, setShowPassword] = useState('password')
   const navigation = useNavigate()
   const { email, firstName, lastName, password, confirmPassword } = userState
-  const { setUsers } = useAuth()
+  const { setUsers, encodedToken } = useAuth()
+
+  useEffect(() => {
+    if (encodedToken) {
+      navigation('/home')
+      successToast('Welcome Back to Notes Banao')
+    }
+  })
   const SignUpHandler = async e => {
     e.preventDefault()
     try {
