@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import authStyle from './auth.module.css'
 import axios from 'axios'
@@ -10,11 +10,18 @@ export function Login() {
   const [password, setPassword] = useState('')
   const navigation = useNavigate()
   const [error, setError] = useState(null)
-  const { setUsers } = useAuth()
+  const { setUsers, encodedToken } = useAuth()
   const [showPassword, setShowPassword] = useState('password')
 
+  useEffect(() => {
+    if (encodedToken) {
+      navigation('/home')
+      successToast('Welcome Back to Notes Banao')
+    }
+  })
   const loginHandler = async e => {
     e.preventDefault()
+
     try {
       const response = await axios.post('/api/auth/login', {
         email,
