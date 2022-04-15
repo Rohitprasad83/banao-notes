@@ -5,7 +5,9 @@ function Navbar({ openSidebar, setOpenSidebar }) {
       <span className="hamburger" onClick={() => setOpenSidebar(!openSidebar)}>
         <i className="fa-solid fa-bars"></i>
       </span>
-      <h3 className="navbar__header">Banao Notes</h3>
+      <h3 className="navbar__header cursor__pointer">
+        <Link to="/">Notes Banao</Link>
+      </h3>
       <ul className="navbar__list">
         <li className="navbar__list__items">
           <Link to="/home">Home </Link>
