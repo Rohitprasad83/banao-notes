@@ -13,7 +13,7 @@ import {
 function Home() {
   const { encodedToken } = useAuth()
   const { notes, setNotes } = useNote()
-  const { filters } = useFilter()
+  const { filters, filterDispatch } = useFilter()
   const filterByTags = filterNotesByTags(notes, filters.tags)
   const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
   const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
@@ -30,6 +30,9 @@ function Home() {
       }
     })()
   }, [notes, setNotes, encodedToken])
+
+  useEffect(() => filterDispatch({ type: 'RESET' }), [])
+
   return (
     <div className="home__container">
       <Layout />

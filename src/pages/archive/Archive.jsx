@@ -12,7 +12,7 @@ import {
 
 function Archive() {
   const { encodedToken } = useAuth()
-  const { filters } = useFilter()
+  const { filters, filterDispatch } = useFilter()
   const { archiveNotes, setArchiveNotes } = useNote()
 
   const filterByTags = filterNotesByTags(archiveNotes, filters.tags)
@@ -31,6 +31,8 @@ function Archive() {
       }
     })()
   }, [archiveNotes])
+
+  useEffect(() => filterDispatch({ type: 'RESET' }), [])
   return (
     <div className="home__container">
       <Layout />
