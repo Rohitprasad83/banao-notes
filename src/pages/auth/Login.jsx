@@ -4,6 +4,7 @@ import authStyle from './auth.module.css'
 import axios from 'axios'
 import { useAuth } from 'context/auth-context'
 import { successToast, errorToast } from 'components/toast/toasts'
+import { useTitle } from 'utils/useTitle'
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -12,6 +13,8 @@ export function Login() {
   const [error, setError] = useState(null)
   const { setUsers, encodedToken } = useAuth()
   const [showPassword, setShowPassword] = useState('password')
+
+  useTitle('Archive')
 
   useEffect(() => {
     if (encodedToken) {

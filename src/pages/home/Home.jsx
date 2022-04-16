@@ -9,6 +9,7 @@ import {
   filterNotesByPriority,
   filterNotesByTags,
 } from 'utils/filterUtils'
+import { useTitle } from 'utils/useTitle'
 
 function Home() {
   const { encodedToken } = useAuth()
@@ -17,6 +18,8 @@ function Home() {
   const filterByTags = filterNotesByTags(notes, filters.tags)
   const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
   const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
+
+  useTitle('Home')
 
   useEffect(() => {
     ;(async () => {
@@ -29,7 +32,7 @@ function Home() {
         errorToast('Could not Fetch All notes, please try again')
       }
     })()
-  }, [notes, setNotes, encodedToken])
+  }, [notes])
 
   useEffect(() => filterDispatch({ type: 'RESET' }), [])
 

@@ -7,6 +7,7 @@ import {
   filterNotesByPriority,
   filterNotesByTags,
 } from 'utils/filterUtils'
+import { useTitle } from 'utils/useTitle'
 
 function Trash() {
   const { trash } = useNote()
@@ -18,6 +19,7 @@ function Trash() {
 
   useEffect(() => filterDispatch({ type: 'RESET' }), [])
 
+  useTitle('Trash')
   const filteredTrashNotesByTags = filterNotesByTags(
     allTrashNotes,
     filters.tags

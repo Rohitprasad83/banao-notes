@@ -9,7 +9,7 @@ import {
   filterNotesByTags,
   filterNotesByPriority,
 } from 'utils/filterUtils'
-
+import { useTitle } from 'utils/useTitle'
 function Archive() {
   const { encodedToken } = useAuth()
   const { filters, filterDispatch } = useFilter()
@@ -19,6 +19,7 @@ function Archive() {
   const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
   const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
 
+  useTitle('Archive')
   useEffect(() => {
     ;(async () => {
       try {
