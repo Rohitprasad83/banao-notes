@@ -1,5 +1,15 @@
+import { useAuth } from 'context'
 import { Link } from 'react-router-dom'
+import { successToast } from 'components/toast/toasts'
+
 function Navbar({ openSidebar, setOpenSidebar }) {
+  const { encodedToken, setEncodedToken } = useAuth
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    setEncodedToken(null)
+    successToast('You have been successfully Logged Out.')
+  }
   return (
     <nav className="navbar simple">
       <span className="hamburger" onClick={() => setOpenSidebar(!openSidebar)}>
@@ -13,7 +23,13 @@ function Navbar({ openSidebar, setOpenSidebar }) {
           <Link to="/home">Home </Link>
         </li>
         <li className="navbar__list__items">
-          <Link to="/profile">Profile</Link>
+          {encodedToken !== null ? (
+            <Link to="/" onClick={logout}>
+              Logout
+            </Link>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </li>
       </ul>
     </nav>
