@@ -19,7 +19,7 @@ function Home() {
   const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
   const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
 
-  useTitle('Home')
+  useTitle('| Home')
 
   useEffect(() => {
     ;(async () => {

@@ -2,7 +2,7 @@ import { Layout } from 'components/index'
 import { useTitle } from 'utils/useTitle'
 
 function Profile() {
-  useTitle('Profile')
+  useTitle('| Profile')
 
   return (
     <div className="home__container">

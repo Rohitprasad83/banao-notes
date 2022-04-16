@@ -6,6 +6,7 @@ import { useAuth } from 'context/auth-context'
 import { validateEmail, validatePass } from 'utils/authenticationUtils'
 import { authReducer } from 'reducer/authReducer'
 import { successToast, errorToast } from 'components/toast/toasts'
+import { useTitle } from 'utils/useTitle'
 
 export function Signup() {
   const [userState, userDispatch] = useReducer(authReducer, {
@@ -21,6 +22,7 @@ export function Signup() {
   const { email, firstName, lastName, password, confirmPassword } = userState
   const { setUsers, encodedToken } = useAuth()
 
+  useTitle('| SignUp')
   useEffect(() => {
     if (encodedToken) {
       navigation('/home')

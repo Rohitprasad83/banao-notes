@@ -19,7 +19,7 @@ function Trash() {
 
   useEffect(() => filterDispatch({ type: 'RESET' }), [])
 
-  useTitle('Trash')
+  useTitle('| Trash')
   const filteredTrashNotesByTags = filterNotesByTags(
     allTrashNotes,
     filters.tags

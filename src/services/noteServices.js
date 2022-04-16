@@ -16,6 +16,7 @@ const saveNoteHandler = async(
 
     if (encodedToken) {
         if (allFieldsAreFilled(note)) {
+            console.log(note)
             try {
                 const response = await axios.post(
                     '/api/notes', {
@@ -29,6 +30,7 @@ const saveNoteHandler = async(
                 response.status === 201 && noteDispatch({ type: 'RESET' })
                 successToast('You have successfully saved the note!')
             } catch (err) {
+                console.log(err)
                 errorToast('Something went wrong, Please try again!')
             }
         } else {

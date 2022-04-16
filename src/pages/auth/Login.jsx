@@ -14,7 +14,7 @@ export function Login() {
   const { setUsers, encodedToken } = useAuth()
   const [showPassword, setShowPassword] = useState('password')
 
-  useTitle('Archive')
+  useTitle('| Login')
 
   useEffect(() => {
     if (encodedToken) {
@@ -24,7 +24,6 @@ export function Login() {
   })
   const loginHandler = async e => {
     e.preventDefault()
-
     try {
       const response = await axios.post('/api/auth/login', {
         email,

@@ -18,7 +18,7 @@
     padding: 2rem;
     width: max-content;
     top: 1rem;
-    height: max-height;
+    height: max-content;
     bottom: 0;
     display: flex;
     flex-direction: column;
@@ -29,7 +29,6 @@
 .home__container>.main__container {
     grid-area: main;
     background-color: var(--white);
-    height: 100%;
 }
 
 .sidebar__items {

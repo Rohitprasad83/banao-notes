@@ -19,7 +19,7 @@ function Archive() {
   const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
   const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
 
-  useTitle('Archive')
+  useTitle('| Archive')
   useEffect(() => {
     ;(async () => {
       try {
