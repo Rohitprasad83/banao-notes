@@ -1,18 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import authStyle from './auth.module.css'
 import axios from 'axios'
 import { useAuth } from 'context/auth-context'
 import { successToast, errorToast } from 'components/toast/toasts'
+import { useTitle } from 'utils/useTitle'
 
 export function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigation = useNavigate()
   const [error, setError] = useState(null)
-  const { setUsers } = useAuth()
+  const { setUsers, encodedToken } = useAuth()
   const [showPassword, setShowPassword] = useState('password')
 
+  useTitle('| Login')
+
+  useEffect(() => {
+    if (encodedToken) {
+      navigation('/home')
+      successToast('Welcome Back to Notes Banao')
+    }
+  })
   const loginHandler = async e => {
     e.preventDefault()
     try {
@@ -20,7 +29,6 @@ export function Login() {
         email,
         password,
       })
-      successToast('You have been logged in successfully')
       localStorage.setItem('token', response.data.encodedToken)
       setUsers(response.data.foundUser)
       response.status === 200 && navigation('/home')

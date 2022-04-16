@@ -39,6 +39,23 @@ function filterReducer(state, action) {
         ...state,
         tags: { ...state.tags, Creativity: !state.tags.Creativity },
       }
+
+    case 'RESET':
+      return {
+        ...state,
+        priority: { ...state.priority, low: false, medium: false, high: false },
+        tags: {
+          ...state.tags,
+          Work: false,
+          Exercise: false,
+          Health: false,
+          School: false,
+          Teams: false,
+          Chores: false,
+          Creativity: false,
+        },
+        sortBy: null,
+      }
     default:
       return { ...state }
   }

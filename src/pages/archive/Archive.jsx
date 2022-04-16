@@ -4,15 +4,22 @@ import { errorToast } from 'components/toast/toasts'
 import { useNote, useAuth, useFilter } from 'context/index'
 import axios from 'axios'
 import { Note } from 'components/main/Note'
-import { sortNotesByAge } from 'utils/filterUtils'
-
+import {
+  sortNotesByAge,
+  filterNotesByTags,
+  filterNotesByPriority,
+} from 'utils/filterUtils'
+import { useTitle } from 'utils/useTitle'
 function Archive() {
   const { encodedToken } = useAuth()
-  const { filters } = useFilter()
+  const { filters, filterDispatch } = useFilter()
   const { archiveNotes, setArchiveNotes } = useNote()
 
-  const sortedNotes = sortNotesByAge(archiveNotes, filters.sortBy)
+  const filterByTags = filterNotesByTags(archiveNotes, filters.tags)
+  const filteredNotes = filterNotesByPriority(filterByTags, filters.priority)
+  const sortedNotes = sortNotesByAge(filteredNotes, filters.sortBy)
 
+  useTitle('| Archive')
   useEffect(() => {
     ;(async () => {
       try {
@@ -25,6 +32,8 @@ function Archive() {
       }
     })()
   }, [archiveNotes])
+
+  useEffect(() => filterDispatch({ type: 'RESET' }), [])
   return (
     <div className="home__container">
       <Layout />

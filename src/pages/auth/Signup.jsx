@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useReducer, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import authStyle from './auth.module.css'
@@ -6,6 +6,7 @@ import { useAuth } from 'context/auth-context'
 import { validateEmail, validatePass } from 'utils/authenticationUtils'
 import { authReducer } from 'reducer/authReducer'
 import { successToast, errorToast } from 'components/toast/toasts'
+import { useTitle } from 'utils/useTitle'
 
 export function Signup() {
   const [userState, userDispatch] = useReducer(authReducer, {
@@ -19,7 +20,15 @@ export function Signup() {
   const [showPassword, setShowPassword] = useState('password')
   const navigation = useNavigate()
   const { email, firstName, lastName, password, confirmPassword } = userState
-  const { setUsers } = useAuth()
+  const { setUsers, encodedToken } = useAuth()
+
+  useTitle('| SignUp')
+  useEffect(() => {
+    if (encodedToken) {
+      navigation('/home')
+      successToast('Welcome Back to Notes Banao')
+    }
+  })
   const SignUpHandler = async e => {
     e.preventDefault()
     try {

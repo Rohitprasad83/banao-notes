@@ -1,16 +1,35 @@
+import { useEffect } from 'react'
 import { Layout, MainContent } from '../../components/index'
 import { Note } from 'components/main/Note'
 import { useNote, useFilter } from 'context/index'
-import { sortNotesByAge } from 'utils/filterUtils'
+import {
+  sortNotesByAge,
+  filterNotesByPriority,
+  filterNotesByTags,
+} from 'utils/filterUtils'
+import { useTitle } from 'utils/useTitle'
 
 function Trash() {
   const { trash } = useNote()
-  const { filters } = useFilter()
+  const { filters, filterDispatch } = useFilter()
   let allTrashNotes = []
   for (let note of trash) {
     allTrashNotes.push(note.note)
   }
-  const sortedNotes = sortNotesByAge(allTrashNotes, filters.sortBy)
+
+  useEffect(() => filterDispatch({ type: 'RESET' }), [])
+
+  useTitle('| Trash')
+  const filteredTrashNotesByTags = filterNotesByTags(
+    allTrashNotes,
+    filters.tags
+  )
+  const filteredTrashNotes = filterNotesByPriority(
+    filteredTrashNotesByTags,
+    filters.priority
+  )
+  const sortedNotes = sortNotesByAge(filteredTrashNotes, filters.sortBy)
+
   return (
     <div className="home__container">
       <Layout />

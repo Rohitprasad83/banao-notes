@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import notesApp from '../../assets/images/notesApp.svg'
 import landingStyle from './landingPage.module.css'
+import { useTitle } from 'utils/useTitle'
+
 export function LandingPage() {
+  useTitle('')
+
   return (
     <div className={landingStyle['container']}>
       <div className={landingStyle['details']}>
