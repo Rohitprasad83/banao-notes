@@ -10,9 +10,9 @@ export function Error404() {
       <Layout />
 
       <div className={`main__container `}>
-        <h2 className="text__center">
+        <h3 className="text__center">
           We Could not Found What you are Looking For!!!
-        </h2>
+        </h3>
         <img
           src={error404}
           alt="Not Found"

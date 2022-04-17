@@ -38,7 +38,7 @@ function Archive() {
     <div className="home__container">
       <Layout />
       <div className="main__container">
-        <h2 className="text__center">Archive </h2>
+        <h3 className="text__center">Archive </h3>
         <MainContent />
         <div className="notes__container">
           {sortedNotes.map(note => (
