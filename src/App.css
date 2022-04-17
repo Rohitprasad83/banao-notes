@@ -29,6 +29,7 @@
 .home__container>.main__container {
     grid-area: main;
     background-color: var(--white);
+    min-height: 90rem;
 }
 
 .sidebar__items {
@@ -245,6 +246,12 @@
     overflow-wrap: break-word;
 }
 
+.error404 {
+    max-width: 60rem;
+    display: block;
+    margin: 5rem auto;
+}
+
 @media (max-width: 660px) {
     .navbar {
         height: 7rem;
@@ -253,6 +260,7 @@
         position: absolute;
         z-index: 1;
         margin-top: 6rem;
+        min-height: 100vh;
         background-color: var(--white);
     }
     .main__container {

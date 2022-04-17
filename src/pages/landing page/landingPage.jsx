@@ -9,7 +9,7 @@ export function LandingPage() {
   return (
     <div className={landingStyle['container']}>
       <div className={landingStyle['details']}>
-        <h3 className={landingStyle['heading']}>Banao Notes</h3>
+        <h3 className={landingStyle['heading']}>Notes Banao</h3>
         <h5>Meet your modern</h5>
         <h5>Note Taking App</h5>
         <p className="text__md">

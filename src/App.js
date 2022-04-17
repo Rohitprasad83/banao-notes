@@ -12,6 +12,7 @@ import {
   Trash,
   Label,
   Profile,
+  Error404,
 } from 'pages/index'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/label" element={<Label />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/mock" element={<Mockman />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
       <ToastContainer />
     </div>
