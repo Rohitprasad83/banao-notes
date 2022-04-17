@@ -30,11 +30,6 @@ function Layout() {
             </Link>
           </div>
           <div className="sidebar__items">
-            <Link to="/label">
-              <i className="fa-solid fa-tag"></i>
-            </Link>
-          </div>
-          <div className="sidebar__items">
             <Link to="/archive">
               <i className="fa-solid fa-box-archive"></i>
             </Link>
