@@ -245,6 +245,12 @@
     overflow-wrap: break-word;
 }
 
+.error404 {
+    max-width: 60rem;
+    display: block;
+    margin: 5rem auto;
+}
+
 @media (max-width: 660px) {
     .navbar {
         height: 7rem;
