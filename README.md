@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Notesbanao
+Notesbanao is a note taking app, that helps you manage your daily notes.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+1. Add a new note
+    - I can add a note by clicking on a primary button "Add Note" or a "+" icon button which will open a textbox where we can add texts. And a "Save" button that will save the note.
 
-## Available Scripts
+2. Edit Note
+    - I can click on the "Edit Note" button which will open the same component with the textbox where we can edit a note & save it.
 
-In the project directory, you can run:
+3. Delete Note
+    - I can click on the "Delete Note" button which will delete a note.
 
-### `yarn start`
+3. Filter & Sort by date, priority, tags
+    - Filter by tags
+        - I can filter notes by tags added to the note.
+        - All the tags will appear in the sidebar.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    - Filter by priority
+        - I can filter the notes by priority
+        - Priorities would be high, medium, low
+    - Sort by date
+        - I can sort the notes by the date added/created.
+4. Change Card Color
+    - I can see various color containers (div) where if I click on any one of it. It will change the background color of the note.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+5. Select tags from the predefined notes
+6. Trash & Archive
+    - Archive Notes: When I click on the "Archive Note" button which will add a note to the archive list
+    - Delete Notes: I can click on a "trash" button or a "delete" button to delete the note which will add a note to the trash list
 
-### `yarn test`
+7. Sign-up Page
+    -  I can see a sign-up page from where I can sign-up using my email, first name, last name, password & confirm password.
+    -  I can see a hide-show icon checkbox that shows or hides my password.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8. Login Page
+    - I can see a login page from where I can log in using my email & password.
 
-### `yarn build`
+9. Logout
+    - I can see a logout button from where I can log out from the app on the header navbar.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---- 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* HTML
+* CSS
+* Javascript
+* React
 
-### `yarn eject`
+----
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Built using
+* [Particle UI](https://particle-ui.netlify.app)
+* [Mockbee](https://mockbee.netlify.app/)
+* [React Router Dom](https://v5.reactrouter.com/web/guides/quick-start)
+* [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+----
+## To Run Locally
+Clone the repository on your local machine with the command below in your terminal, and cd into the banao-notes folder
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Clone the Repository
+```
+git clone https://github.com/Rohitprasad83/banao-notes.git
+```
+### Running the App
+```
+cd banao-notes
+```
+#### Create a .env file at the root level of the directory and create a environment variable.
+```
+REACT_APP_JWT_SECRET=<JWT_SECRET_KEY_OF_YOUR_CHOICE>
+```
+#### Start the server
+```
+npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Screenshots
+![image](https://user-images.githubusercontent.com/66221637/163729178-639b086f-814a-4f33-ba1a-dd21ede93b8d.png)
+![image](https://user-images.githubusercontent.com/66221637/163729197-036730ce-945b-4d0f-b197-03795df7325c.png)
+![image](https://user-images.githubusercontent.com/66221637/163729209-30a3dd8f-32ce-4237-b327-89399d3adb39.png)
+![image](https://user-images.githubusercontent.com/66221637/163729268-b65e976c-13f4-49fd-9902-57526dfedec8.png)
+![image](https://user-images.githubusercontent.com/66221637/163729287-d9fa06f8-56a0-4a3a-a890-e8c2e0d78729.png)
+![image](https://user-images.githubusercontent.com/66221637/163729305-ea1de071-9530-462c-83c3-08150e56ee5a.png)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
