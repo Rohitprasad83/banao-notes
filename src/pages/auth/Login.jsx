@@ -38,8 +38,8 @@ export function Login() {
     }
   }
   const fillDummyDetails = () => {
-    setEmail('adarshbalika@gmail.com')
-    setPassword('adarshBalika123')
+    setEmail('rohit.prasad@gmail.com')
+    setPassword('rohitprasad123')
   }
 
   const allFieldsAreFilled = email !== '' && password !== ''
