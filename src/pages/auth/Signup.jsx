@@ -26,7 +26,6 @@ export function Signup() {
   useEffect(() => {
     if (encodedToken) {
       navigation('/home')
-      successToast('Welcome Back to Notes Banao')
     }
   })
   const SignUpHandler = async e => {
@@ -180,11 +179,6 @@ export function Signup() {
           />
           Show Password
         </label>
-        <div className="form__bottom">
-          <label className="text__md">
-            <input type="checkbox" />I accept all terms & conditions
-          </label>
-        </div>
         <button
           className={`"btn btn__warning ${authStyle['login']}`}
           type="submit"
@@ -195,9 +189,9 @@ export function Signup() {
           type="submit"
           onClick={() => userDispatch({ type: 'FILL_DUMMY_DETAILS' })}
           className={`"btn btn__info ${authStyle['login']}`}>
-          SignUp with Dummy Details
+          Guest Signup
         </button>
-        <div className="register text__center">
+        <div className="register text__center text-underline">
           <Link to="/login"> Already have an account </Link>
         </div>
       </form>

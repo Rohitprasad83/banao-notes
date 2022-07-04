@@ -29,11 +29,7 @@ function Sidebar() {
           <i className="fa-solid fa-trash"></i> Trash
         </Link>
       </div>
-      <div className="sidebar__items">
-        <Link to="/profile">
-          <i className="fa-solid fa-user"></i> Profile
-        </Link>
-      </div>
+
       <div className="sidebar__items ">
         <i className="fa-solid fa-filter input__icons"></i>
         <span> Sort By and Filters </span>

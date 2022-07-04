@@ -39,11 +39,7 @@ function Layout() {
               <i className="fa-solid fa-trash"></i>
             </Link>
           </div>
-          <div className="sidebar__items">
-            <Link to="/profile">
-              <i className="fa-solid fa-user"></i>
-            </Link>
-          </div>
+
           <div className="sidebar__items">
             <i
               className="fa-solid fa-filter input__icons"

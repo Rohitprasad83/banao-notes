@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNote, useAuth } from 'context/index'
 import { colors } from './colors'
 import { saveNoteHandler } from 'services/noteServices'
+import { useLocation, useNavigate } from 'react-router-dom'
 function MainContent() {
   const { note, noteDispatch, notes, setNotes } = useNote()
   const [showPalette, setShowPalette] = useState(false)
@@ -17,8 +18,14 @@ function MainContent() {
     'Chores',
     'Creativity',
   ]
-
+  const location = useLocation()
+  const navigate = useNavigate()
   const { encodedToken } = useAuth()
+
+  const checkLocation = path => {
+    path !== '/home' && navigate('/home')
+    setCreateNote(true)
+  }
 
   return (
     <div>
@@ -26,12 +33,12 @@ function MainContent() {
         <div className="new__note">
           <button
             className="btn btn__warning"
-            onClick={() => setCreateNote(true)}>
+            onClick={() => checkLocation(location.pathname)}>
             Create a New Note
           </button>
         </div>
 
-        {createNote && (
+        {createNote && location.pathname === '/home' && (
           <div className="note__input" style={{ backgroundColor: note.color }}>
             <input
               type="text"

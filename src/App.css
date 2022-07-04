@@ -252,24 +252,39 @@
     margin: 5rem auto;
 }
 
+.empty__state {
+    max-width: 35rem;
+    margin: 4rem auto;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.msg {
+    width: 100%;
+}
+
 @media (max-width: 660px) {
     .navbar {
         height: 7rem;
     }
-    .sidebar {
-        position: absolute;
-        z-index: 1;
+    .home__container>.sidebar {
+        position: fixed;
         margin-top: 6rem;
-        min-height: 100vh;
+        height: 100%;
         background-color: var(--white);
+        padding: 1rem;
     }
     .main__container {
         margin-left: 5rem;
     }
     .note__input {
-        width: 80%;
+        width: 90%;
+        margin: 0 0 0 1rem;
     }
     .note {
-        width: 90%
+        width: 100%;
+        margin: 0;
     }
 }
