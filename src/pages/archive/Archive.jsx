@@ -10,6 +10,8 @@ import {
   filterNotesByPriority,
 } from 'utils/filterUtils'
 import { useTitle } from 'utils/useTitle'
+import empty from '../../assets/images/empty.svg'
+
 function Archive() {
   const { encodedToken } = useAuth()
   const { filters, filterDispatch } = useFilter()
@@ -38,13 +40,23 @@ function Archive() {
     <div className="home__container">
       <Layout />
       <div className="main__container">
-        <h3 className="text__center">Archive </h3>
+        <h2 className="text__center">Archive </h2>
         <MainContent />
+
         <div className="notes__container">
           {sortedNotes.map(note => (
             <Note key={note._id} note={note} />
           ))}
         </div>
+
+        {sortedNotes && sortedNotes.length < 1 && (
+          <>
+            <h4 className="text__center">No Notes Added to Archive</h4>
+            <div className="empty__state">
+              <img src={empty} alt="Landing Page" className="responsive__img" />
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

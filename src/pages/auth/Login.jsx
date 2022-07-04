@@ -21,7 +21,7 @@ export function Login() {
       navigation('/home')
       successToast('Welcome Back to Notes Banao')
     }
-  })
+  }, [])
   const loginHandler = async e => {
     e.preventDefault()
     try {
@@ -37,9 +37,10 @@ export function Login() {
       errorToast(error)
     }
   }
-  const fillDummyDetails = () => {
+  const fillDummyDetails = e => {
     setEmail('rohit.prasad@gmail.com')
     setPassword('rohitprasad123')
+    loginHandler(e)
   }
 
   const allFieldsAreFilled = email !== '' && password !== ''
@@ -48,9 +49,7 @@ export function Login() {
   }
   return (
     <div>
-      <form
-        onClick={loginHandler}
-        className={`form__group ${authStyle['form__group']}`}>
+      <form className={`form__group ${authStyle['form__group']}`}>
         <h4 className={authStyle['heading']}>Login</h4>
         <label htmlFor="email">Email</label>
         <input
@@ -80,24 +79,21 @@ export function Login() {
             <input type="checkbox" />
             Show Password
           </label>
-          <span className="forgot__password text__bold text__md">
-            Forgot your password?
-          </span>
         </div>
         <button
           className={`"btn btn__warning ${authStyle['login']}`}
-          type="submit"
-          disabled={!allFieldsAreFilled}>
+          disabled={!allFieldsAreFilled}
+          onClick={loginHandler}>
           <i className="fas fa-sign-in-alt login__icon"></i>
           Login
         </button>
         <button
           className={`"btn btn__info ${authStyle['login']}`}
-          onClick={fillDummyDetails}>
+          onClick={e => fillDummyDetails(e)}>
           <i className="fas fa-sign-in-alt login__icon"></i>
-          Fill Dummy details
+          Guest Login
         </button>
-        <div className="register text__center">
+        <div className="text__center text-underline">
           <Link to="/signup"> Create a new account </Link>
         </div>
       </form>
